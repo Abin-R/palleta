@@ -171,7 +171,6 @@ def password_reset(request):
             uidb64 = urlsafe_base64_encode(force_bytes(myuser.pk))
             reset_url = reverse('password_reset_confirm', kwargs={'uidb64': uidb64, 'token': token})
             reset_url = f"{request.scheme}://{current_site}{reset_url}"
-            print(f"uidb64: {uidb64}, token: {token}")
             # uidb64 = urlsafe_base64_encode(force_bytes(myuser.pk))
             
             # password_reset_confirm_url = reverse('password_reset_confirm', kwargs={'uidb64': uidb64, 'token': token})
@@ -362,7 +361,7 @@ def custom_signin(request):
                     user_cart, created = Cart.objects.get_or_create(user_id=user)
 
                     for guest_item in guest_cart.cartitem_set.all():
-                        print(guest_item)
+                        
                         try:
                             
                             user_item = CartItem.objects.get(cart=user_cart, productvariant= guest_item.productvariant)

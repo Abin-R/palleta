@@ -18,11 +18,10 @@ from io import BytesIO
 
 def dashboard(request):
     if request.method == 'GET':
-        print("------------------------------------------")
+     
         start_date = request.GET.get('start_date')
         end_date = request.GET.get('end_date')
-        print(start_date)
-        print(end_date)
+
         if not start_date and not end_date:
             # Calculate the current date
             current_date = timezone.now().date()
@@ -65,12 +64,11 @@ def dashboard(request):
                 total_quantity=Sum('quantity')
             ).order_by('-total_quantity')[:5]
 
-            for item in top_selling_products:
-                print(item)
+            
 
             categories = Category.objects.all()
             data = [Product.objects.filter(category=category).count() for category in categories]
-            print(daily_totals)
+           
             context = {
                 'order_count_date': order_count_date,
                 'total_price_date': total_price_date,
@@ -293,12 +291,11 @@ def add_product(request):
             for image in images:
                 Image.objects.create(variant=variant, image=image)
         except IntegrityError as e:
-            print(f"Error saving images: {e}")
+            
 
             return redirect('product')
         else:
-            print("Product Form Errors:", product_form.errors)
-            print("Variant Form Errors:", variant_form.errors)
+            
             return redirect('/')
     else:
         product_form = ProductForm(prefix='product')
@@ -381,7 +378,7 @@ def order_delivered(request, order_id):
             if order.payment_status=='Pending':
                 order.payment_status='Paid'
             order.save()
-            print(order.return_period_expired)
+           
 
     return redirect(request.META.get('HTTP_REFERER'))
 
@@ -489,7 +486,7 @@ from django.shortcuts import get_object_or_404, redirect
 # from .models import Order, OrderItem, ProductVariant
 
 def admin_order_cancel(request, order_id):
-    print("-------------------------------")
+ 
     order = get_object_or_404(Order, id=order_id)
     
     if request.method == 'POST':

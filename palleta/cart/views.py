@@ -16,7 +16,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 #add to cart:
 def add_to_cart(request, variant_id):
-    print(variant_id)
+
     try:
         variant = ProductVariant.objects.get(id=variant_id)
         user = request.user

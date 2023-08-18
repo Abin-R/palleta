@@ -27,7 +27,7 @@ def home(request):
     else:
         product_in_wishlist =[]
     
-    print("Product in Wishlist:", product_in_wishlist)
+    
     top_selling_products = Product.objects.annotate(sales_count=Count('productvariant__orderitem')).order_by('-sales_count')[:4]
     
     context = {
@@ -145,7 +145,6 @@ def product(request, id):
     try:
         category_discount = Offer.objects.get(category=product.category)
         category_discount_percentage = category_discount.discount_percentage
-        print("Found category discount:", category_discount_percentage)
     except Offer.DoesNotExist:
         pass
 
@@ -191,7 +190,7 @@ def base(request):
 
 
 def add_to_wishlistt(request,variant_id):
-        print('----------------------------')
+        
 
   
         product = ProductVariant.objects.get(id =variant_id)
@@ -232,7 +231,7 @@ def wishlist(request):
     return render(request, 'wishlist/wishlist.html', context)
 
 def remove_from_wishlist(request, item_id):
-    print('----------------------------')
+   
     # Get the WishlistItem object with the given item_id
     try:
         item = Wishlistitem.objects.get(pk=item_id)

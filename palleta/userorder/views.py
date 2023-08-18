@@ -80,9 +80,7 @@ def cash_order(request,address_id):
     total_price = cart.get_total_price()
     address = Address.objects.get(id=address_id)
 
-    print('----------------------------------------')
-    print(address)
-
+   
     order = Order.objects.create(
         user=user, 
         total_price=total_price,
@@ -109,7 +107,7 @@ def cash_order(request,address_id):
             price=cart_item.price,
         )
         price=cart_item.price,
-        print(price)
+       
 
         product_variant = cart_item.productvariant
         product_variant.stock -= cart_item.quantity
@@ -291,7 +289,7 @@ def order_view(request,order_id):
     items = OrderItem.objects.filter(order=orders)
     total_price = sum(item.price * item.quantity for item in items)
 
-    print(orders.order_status)
+   
 
     context = {
         'orders':orders,
