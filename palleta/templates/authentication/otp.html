@@ -1,0 +1,54 @@
+{% extends 'authentication/base.html' %}
+{% block content %}
+
+    <!-- first class -->
+    <section class="container-fluid vh-150">
+      <div class="container py-5 h-auto">
+            <div class="row align-items-center justify-content-center h-100 border border-secondary-subtle">
+                <div class="col-md-8 col-lg-7 col-xl-6 p-0">
+                    <div class="img-container h-100">
+                        <img src="https://www.thisiscolossal.com/wp-content/uploads/2012/08/kyu-hak.jpg" class="img-fluid" alt="Phone image"
+                            style="width: 70rem; padding-right: 20px; height: 50rem; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-md-7 col-lg-3 col-xl-5 offset-lg-1">
+                    <div class="">
+                        <h3 class="texts font-monospace fw-bolder mx-5  my-5" style="padding-bottom:20px">SIGN IN WITH PALLETA</h3>
+                    </div>
+    
+                    <form action="" method="POST" >
+
+
+                      {% csrf_token %}
+
+                    
+                        <!-- Email input -->
+                        <div class="container height-100 d-flex justify-content-start align-items-center">
+                            <div class="position-relative">
+                                <div class="card p-2 text-center">
+                                    <h6>Please enter the one time password <br> to verify your account</h6>
+                                    <div> <span>A code has been sent to</span> <small>*******9897</small> </div>
+                                    <div id="otp" type="otp" name="otp" class="inputs d-flex flex-row justify-content-center mt-2"> <input class="m-2 text-center form-control rounded" type="text" id="first" name="otp" maxlength="1" />
+                                      <input class="m-2 text-center form-control rounded" type="text" id="second" name="otp" maxlength="1" />
+                                      <input class="m-2 text-center form-control rounded" type="text" id="third" name="otp" maxlength="1" />
+                                      <input class="m-2 text-center form-control rounded" type="text" id="fourth" name="otp" maxlength="1" />
+                                      <input class="m-2 text-center form-control rounded" type="text" id="fifth" name="otp" maxlength="1" />
+                                      <input class="m-2 text-center form-control rounded" type="text" id="sixth" name="otp" maxlength="1" />
+                                      </div>
+                                    <div class="mt-4">
+                                      <button class="btn btn-danger px-4" type="submit">Validate</button>
+
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+    
+                        
+    
+                    </form>
+                </div>
+            </div>
+      </div>
+    </section>
+    {% endblock %}

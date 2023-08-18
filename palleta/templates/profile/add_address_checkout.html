@@ -1,0 +1,64 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container my-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="bg-white card addresses-item mb-4 border border-primary shadow">
+        <div class="gold-members p-4">
+          <div class="media">
+            <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>
+            <div class="media-body">
+              <div class="d-flex justify-content-center">
+                <h3 class="mb-5 font-weight-bold">Add Address</h3>
+              </div>
+              <form action="{% url 'add_address_checkout' %}" method="post"> <!-- Add 'method="post"' to the form -->
+                {% csrf_token %} <!-- Add CSRF token to the form -->
+                <!-- Address -->
+                <div class="form-outline mb-4">
+                  <input type="text" name="branch" class="form-control" /> <!-- Add 'name' attributes to form fields -->
+                  <label class="form-label" for="formHBranch">Branch</label>
+                </div>
+                <div class="form-outline mb-4">
+                  <input type="text" name="house_name" class="form-control" /> <!-- Add 'name' attributes to form fields -->
+                  <label class="form-label" for="formHouseName">HouseName</label>
+                </div>
+                <!-- City -->
+                <div class="form-outline mb-4">
+                  <input type="text" name="city" class="form-control" /> <!-- Add 'name' attributes to form fields -->
+                  <label class="form-label" for="formCity">City</label>
+                </div>
+                <!-- District -->
+                <div class="form-outline mb-4">
+                  <input type="text" name="district" class="form-control" /> <!-- Add 'name' attributes to form fields -->
+                  <label class="form-label" for="formDistrict">District</label>
+                </div>
+                <!-- State -->
+                <div class="form-outline mb-4">
+                  <input type="text" name="state" class="form-control" /> <!-- Add 'name' attributes to form fields -->
+                  <label class="form-label" for="formState">State</label>
+                </div>
+                <!-- Zip Code -->
+                <div class="form-outline mb-4">
+                  <input type="text" name="zip_code" class="form-control" /> <!-- Add 'name' attributes to form fields -->
+                  <label class="form-label" for="formZipCode">Zip Code</label>
+                </div>
+                <!-- Country -->
+                <div class="form-outline mb-4">
+                  <input type="text" name="country" class="form-control" /> <!-- Add 'name' attributes to form fields -->
+                  <label class="form-label" for="formCountry">Country</label>
+                </div>
+                <!-- Save Address Button -->
+                <button type="submit" class="btn btn-primary">Save Address</button> <!-- Change 'type="button"' to 'type="submit"' -->
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

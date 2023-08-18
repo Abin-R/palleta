@@ -1,0 +1,80 @@
+{% extends 'admin/main.html' %}
+{% load static %}
+
+{% block link%}
+
+
+{% endblock%}
+
+{% block content %}
+<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<div class="d-flex justify-content-end mb-2 mt-4 mx-5">
+    <a href="{% url 'add_coupon' %}" class="btn btn-primary btn-lg mb-2">Add coupon</a>
+  </div>
+
+<div class="content-wrapper mt-2">
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4">Coupon</h5>
+                    <table id="userListTable" class="table table-striped mt-2">
+                        <thead>
+                            <tr>
+                                <th>Coupon Name</th>
+                                <th>Discount</th>
+                                <th>Valid From</th>
+                                <th>Valid Till</th>
+                                <th>Minimum order amount</th>
+                                <th>single use </th>
+                                <th>Active</th>
+                                <th>Quantity</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for coupon in coupons %}
+                <tr>
+                    
+                    <td>{{ coupon.code }}</td>
+                    <td>{{ coupon.discount }}</td>
+                    <td>{{ coupon.valid_from }}</td>
+                    <td>{{ coupon.valid_to }}</td>
+                    <td>{{ coupon.minimum_order_amount }}</td>
+                    <td>{{ coupon.single_use_per_user }}</td>
+                    <td>{{ coupon.is_active }}</td>
+                    <td>{{ coupon.quantity}}</td>
+                    
+                </tr>
+                {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- JavaScript for handling the Cancel button click and confirmation -->
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#userListTable').DataTable({
+            lengthMenu: [5, 10, 25, 50], // Set the page length options
+            pageLength: 10, // Set the default page length
+            ordering: true, // Enable sorting
+            searching: true, // Enable search functionality
+            paging: true, // Enable pagination
+            // Other DataTables options go here
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'admin/main.html' %}
+
+{% block content %}
+  <div class="d-flex justify-content-center">
+    <h1 class="text-center mb-4">Add Product</h1>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <form method="POST" class="col-md-6 p-4 bg-light rounded" enctype="multipart/form-data">
+      {% csrf_token %}
+      <!-- Render Product fields from ProductForm -->
+      <div class="mb-3">
+        <label for="{{ product_form.name.id_for_label }}" class="form-label">Name</label>
+        {{ product_form.name }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ product_form.image.id_for_label }}" class="form-label">Image</label>
+        {{ product_form.image }}
+        {% if product_form.image.value %}
+            <img src="{{ product_form.image.value.url }}" alt="Product Image" style="max-width: 200px;">
+        {% else %}
+            No image available
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="{{ product_form.category.id_for_label }}" class="form-label">Category</label>
+        {{ product_form.category }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ product_form.artist.id_for_label }}" class="form-label">Artist</label>
+        {{ product_form.artist }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ product_form.description.id_for_label }}" class="form-label">Description</label>
+        {{ product_form.description }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ product_form.medium.id_for_label }}" class="form-label">Medium</label>
+        {{ product_form.medium }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ product_form.style.id_for_label }}" class="form-label">Style</label>
+        {{ product_form.style }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ product_form.created_in.id_for_label }}" class="form-label">Created In</label>
+        {{ product_form.created_in }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ product_form.seller.id_for_label }}" class="form-label">Seller</label>
+        {{ product_form.seller }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ product_form.enabled.id_for_label }}" class="form-label">Enabled</label>
+        {{ product_form.enabled }}
+    </div>
+    
+      <!-- ... render other Product fields ... -->
+      
+      <!-- Render ProductVariant fields from ProductVariantForm -->
+      <div class="mb-3">
+        <label for="{{ variant_form.category.id_for_label }}" class="form-label">Category</label>
+        {{ variant_form.category }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ variant_form.size.id_for_label }}" class="form-label">Size</label>
+        {{ variant_form.size }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ variant_form.discount_percentage.id_for_label }}" class="form-label">Discount Percentage</label>
+        {{ variant_form.discount_percentage }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ variant_form.price.id_for_label }}" class="form-label">Price</label>
+        {{ variant_form.price }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ variant_form.is_active.id_for_label }}" class="form-label">Is Active</label>
+        {{ variant_form.is_active }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ variant_form.stock.id_for_label }}" class="form-label">Stock</label>
+        {{ variant_form.stock }}
+    </div>
+    <div class="form-group">
+      <label for="images" style="margin-bottom: 10px;">Images</label>
+      <input type="file" class="form-control" id="images" name="images" multiple onchange="previewImages(event)">
+      <div id="image-preview" style="display: flex; flex-wrap: wrap; gap: 10px; padding-top: 10px;"></div>
+  </div>
+    
+      <!-- ... render other ProductVariant fields ... -->
+      
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

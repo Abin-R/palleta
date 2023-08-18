@@ -1,0 +1,68 @@
+{% extends 'admin/main.html' %}
+
+{% block content %}
+
+<style>
+  .banner-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+
+  .banner-table th,
+  .banner-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+  }
+
+  .banner-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+
+  .banner-image {
+    max-width: 100px;
+    max-height: 100px;
+  }
+
+  .banner-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .banner-link:hover {
+    text-decoration: underline;
+  }
+</style>
+<h1 class="d-flex justify-content-center my-5 mb-4 font-weight-bold" style="font-family: 'Times New Roman', serif; color: black; text-decoration: underline; font-size: 32px;">Banner List</h1>
+  <div class="d-flex justify-content-end mb-2 mx-5">
+    <a href="{% url 'add_banner' %}" class="btn btn-primary btn-lg mb-1">Add Banner</a>
+  </div>
+
+<table class="banner-table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Artist</th>
+      <th>Image</th>
+      <th>Link</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for banner in active_banners %}
+    <tr>
+      <td>{{ banner.title }}</td>
+      <td>{{ banner.artist }}</td>
+      <td><img src="{{ banner.image.url }}" alt="{{ banner.title }}" class="banner-image"></td>
+      <td><a href="{{ banner.link }}" class="banner-link">{{ banner.link }}</a></td>
+      <td>{{ banner.start_date }}</td>
+      <td>{{ banner.end_date }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

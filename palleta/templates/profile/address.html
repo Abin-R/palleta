@@ -1,0 +1,56 @@
+<!-- address.html -->
+
+{% extends 'profile/base.html' %}
+{% block content %}
+<style>
+    <!-- Your CSS styles here -->
+</style>
+
+<div class="col-md-13">
+    <div class="osahan-account-page-right shadow-sm bg-white p-4 h-100">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade  active show" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+                <div class="d-flex justify-content-end mb-3">
+                    <a href="{% url 'add_address' %}" class="btn btn-primary">Add Address</a>
+
+                </div>
+                <h4 class="font-weight-bold mt-0 mb-4">Manage Addresses</h4>
+                <div class="container my-5 mb-5">
+                    <div class="row justify-content-center">
+                        {% for address in addresses %}
+                            <div class="col-md-6">
+                                <div class="bg-white card addresses-item mb-4 border  shadow">
+                                    <div class="gold-members p-4">
+                                        <div class="media">
+                                            <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>
+                                            <div class="media-body">
+                                                <h6 class="mb-1 text-secondary">{{ address.branch }}</h6>
+                                                <p class="text-black">{{ address.house_name }}, {{ address.city }}, {{ address.district }}, {{ address.state }} {{ address.zip_code }}, {{ address.country }}</p>
+                                                <p class="mb-0 text-black font-weight-bold">
+                                                    <div class="d-inline-block">
+                                                        <a class="text-primary mr-3" href="{% url 'edit_address' address.pk %}">
+                                                            <i class="icofont-ui-edit"></i> EDIT
+                                                        </a>
+                                                    </div>
+                                                    <div class="d-inline-block">
+                                                        <form method="post" action="{% url 'delete_address' address.id %}">
+                                                            {% csrf_token %}
+                                                            <button type="submit" class="btn text-danger" onclick="return confirm('Are you sure you want to delete this address?')">
+                                                                <i class="icofont-ui-delete"></i> DELETE
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

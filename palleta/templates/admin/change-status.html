@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change Order Status</title>
+</head>
+<body>
+    <h1>Change Order Status</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="status">Select Status:</label>
+        <select name="status" id="status">
+            {% for choice in order.ORDER_STATUS_CHOICES %}
+            <option value="{{ choice.0 }}" {% if order.order_status == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit">Update Status</button>
+    </form>
+</body>
+</html>

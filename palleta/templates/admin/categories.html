@@ -1,0 +1,98 @@
+{% extends 'admin/main.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+
+<h1 class="d-flex justify-content-center my-3 font-weight-bold my-5 mb-3" style="font-family: 'Times New Roman', serif; color: black; text-decoration: underline; font-size: 32px;">Category List</h1>
+
+
+<div class="d-flex justify-content-end mb-3 mx-5">
+  <a href="{% url 'add_category' %}" class="btn btn-primary btn-lg mb-2">Add Category</a>
+</div>
+
+<div class="container-fluid">
+  <div class="card">
+      <div class="card-body">
+  <div class="table-responsive">
+    <table id="userListTable" class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Category Name</th>
+          <th>Image</th>
+          <th>Status</th>
+          <th>Edit</th>
+          <th>Enable/Disable</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category in categories %}
+          <tr>
+            <td>{{ category.id }}</td>
+            <td>{{ category.name }}</td>
+            <td>
+              {% if category.image %}
+                <div style="width: 100px; height: 100px; overflow: hidden;">
+                  <img src="{{ category.image.url }}" alt="{{ category.name }}" style="max-width: 100%; max-height: 100%;">
+                </div>
+              {% else %}
+                No image available
+              {% endif %}
+            </td>
+            </td>
+            <td>
+              {% if category.enabled %}
+                <span class="text-success">Active</span>
+              {% else %}
+                <span class="text-danger">Inactive</span>
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'edit_category' category.id %}" class="btn btn-outline-primary btn-sm " style="border-radius:10%">
+                Edit
+              </a>
+            </td>
+            <td style="margin-left:100px">
+              {% if category.enabled %}
+                <a href="{% url 'disable_category' category.id %}" class="btn btn-sm" style="background-color: #e7e7e7; color: black;border-radius:10%">
+                  Disable
+                </a>
+              {% else %}
+                <a href="{% url 'enable_category' category.id %}" class="btn btn-outline-success btn-sm" style="color: green;border-radius:10%">
+                  Enable
+                </a>
+              {% endif %}
+            </td>
+            
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- JavaScript for handling the Cancel button click and confirmation -->
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#userListTable').DataTable({
+            lengthMenu: [5, 10, 25, 50], // Set the page length options
+            pageLength: 10, // Set the default page length
+            ordering: true, // Enable sorting
+            searching: true, // Enable search functionality
+            paging: true, // Enable pagination
+            // Other DataTables options go here
+        });
+    });
+</script>
+{% endblock %}
+

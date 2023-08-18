@@ -1,0 +1,65 @@
+{% extends 'admin/main.html' %}
+
+{% block content %}
+  <div class="d-flex justify-content-center">
+    <h1 class="text-center mb-4">Edit Product</h1>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <form method="POST" class="col-md-6 p-4 bg-light rounded" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="id_name" class="form-label">Name</label>
+        {{ form.name }}
+      </div>
+      <div class="mb-3">
+        <label for="id_image" class="form-label">Image</label>
+        {{ form.image }}
+        {% if form.image %}
+          <img src="{{ form.image.url }}" alt="Product Image" style="max-width: 200px;">
+        {% else %}
+          No image available
+        {% endif %}
+      </div>
+      <div class="mb-3">
+        <label for="id_category" class="form-label">Category</label>
+        {{ form.category }}
+      </div>
+      <div class="mb-3">
+        <label for="id_artist" class="form-label">Artist</label>
+        {{ form.artist }}
+      </div>
+      {% comment %} <div class="mb-3">
+        <label for="id_size" class="form-label">Size</label>
+        {{ form.size }}
+      </div> {% endcomment %}
+      <div class="mb-3">
+        <label for="id_medium" class="form-label">Medium</label>
+        {{ form.medium }}
+      </div>
+      <div class="mb-3">
+        <label for="id_style" class="form-label">Style</label>
+        {{ form.style }}
+      </div>
+      <div class="mb-3">
+        <label for="id_created_in" class="form-label">Created In</label>
+        {{ form.created_in }}
+      </div>
+      <div class="mb-3">
+        <label for="id_seller" class="form-label">Seller</label>
+        {{ form.seller }}
+      </div>
+      {% comment %} <div class="mb-3">
+        <label for="id_price" class="form-label">Price</label>
+        {{ form.price }}
+      </div> {% endcomment %}
+      <div class="mb-3">
+        <label for="id_description" class="form-label">Description</label>
+        {{ form.description }}
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

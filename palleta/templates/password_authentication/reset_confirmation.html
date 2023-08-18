@@ -1,0 +1,75 @@
+
+{% extends 'store/base.html' %}
+
+
+		
+{% block content %}
+<style>
+    
+
+  
+  
+  .texts{
+    font-family: "Lucida Console", "Courier New", monospace;
+  }
+  .half-container {
+    display: flex;
+    height: 120vh;
+    
+  }
+
+  .form-container {
+    border: 1px solid #ccc;
+  }
+  @media (max-width: 450px) {
+    .h-custom {
+    height: 100%;
+    }
+    }
+    .divider:after,
+    .divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+    }
+    .h-custom {
+    height: calc(100% - 73px);
+    }
+
+  
+</style>
+
+
+    <!-- first class -->
+          <section class=" vh-150 my-5" >
+            <div class="container-fluid h-custom my-2  "  >
+              <div class="row d-flex justify-content-center align-items-center h-150 my-5">
+                
+              
+                <div class="img-container">
+                    <img src="https://royalthaiart.com/wp-content/uploads/2022/02/Abstract-Woman-Art-For-Sale-762x1024.jpg" class="img-fluid" alt="Phone image"
+                        style="width: 36rem; height: 38rem; object-fit: cover; flex:1">
+                </div>
+               
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-lg-1"style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; border-right: 1px solid #ccc; height: 38rem; border-radius: 0 5px 5px 0;" >
+                  <!-- <h3><i class="fa fa-lock fa-3x mx-5" style="margin-right: 30rem;"></i></h3> -->
+                    
+                  <div class=" mx-5 mb-3 my-5" style="padding-left: 8%;padding-top:13px">
+                        
+                        
+                    <h3 class="text font-monospace fw-bolder my-5 mx-3"style="padding-bottom:20px" >RESET PASSWORD</h3>
+                </div>
+
+                <div class="card mx-5 my-5" style="width: 26rem; display: flex; flex-direction: column; align-items: center;height: 15rem;">
+                    <img class="card-img-top my-4" src="https://cdn-icons-png.flaticon.com/128/591/591192.png" alt="Card image cap" style="width: 5rem;">
+                    <div class="card-body">
+                      <p class="card-text text-center">A password reset email has been sent to your registered email address. Please check your inbox and follow the instructions to reset your password.</p>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+{% endblock %}
+ 

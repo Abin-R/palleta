@@ -1,0 +1,119 @@
+{% extends 'admin/main.html' %}
+
+
+{% block content %}
+
+<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+  <h1 class="d-flex justify-content-center my-5 mb-2 font-weight-bold" style="font-family: 'Times New Roman', serif; color: black; text-decoration: underline; font-size: 32px;">Product List</h1>
+  <div class="d-flex justify-content-end mb-5 mx-5">
+    <a href="{% url 'add_product' %}" class="btn btn-primary btn-lg mb-2">Add Product</a>
+  </div>
+ 
+    
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+  <div class="table-responsive">
+    <table id="userListTable" class="table table-bordered table-striped">
+      <div>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          
+          <th>Image</th>
+          <th>Category</th>
+          <th>Artist</th>
+          {% comment %} <th>Price</th> {% endcomment %}
+          <th>Description</th>
+          {% comment %} <th>Size</th>
+          <th>Medium</th>
+          <th>Style</th>
+          <th>Created In</th>
+          
+          <th>Seller</th> {% endcomment %}
+          <th>Edit</th>
+          <th>Enable/Disable</th>
+          <th>View</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in product %}
+          <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            
+            <td>
+              {% if product.image %}
+                <div style="width: 100px; height: 100px; overflow: hidden;">
+                  <img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 100%; max-height: 100%;">
+                </div>
+              {% else %}
+                No image available
+              {% endif %}
+            </td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.artist }}</td>
+            {% comment %} <td>{{ product.price }}</td> {% endcomment %}
+            <td>{{ product.description }}</td>
+            {% comment %} <td>{{ product.size }}</td> {% endcomment %}
+            {% comment %} <td>{{ product.medium }}</td>
+            <td>{{ product.style }}</td>
+            <td>{{ product.created_in }}</td>
+            
+            <td>{{ product.seller }}</td>  {% endcomment %}
+            <td>
+              <a href="{% url 'edit_product' product.id %}" class="btn btn-outline-primary btn-sm" style="border-radius:10%">
+                Edit
+              </a>
+            </td>
+            <td style="margin-left:100px">
+              {% if product.enabled == True %}
+                <a href="{% url 'disable_product' product.id %}" class="btn btn-sm mx-4" style="background-color: #e7e7e7; color: black;border-radius:10%">
+                  Disable
+                </a>
+              {% else %}
+                <a href="{% url 'enable_product' product.id %}" class="btn btn-outline-success btn-sm mx-4" style="color: green;border-radius:10%">
+                  Enable
+                </a>
+              {% endif %}
+            </td>
+            <td>  {# Add a new table cell for the View button #}
+              <a href="{% url 'product_detail' product.id %}" class="btn btn-info btn-sm" style="border-radius:10%">
+                View
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- JavaScript for handling the Cancel button click and confirmation -->
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#userListTable').DataTable({
+            lengthMenu: [5, 10, 25, 50], // Set the page length options
+            pageLength: 10, // Set the default page length
+            ordering: true, // Enable sorting
+            searching: true, // Enable search functionality
+            paging: true, // Enable pagination
+            // Other DataTables options go here
+        });
+    });
+</script>
+{% endblock %}

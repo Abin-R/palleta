@@ -1,0 +1,565 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  
+  .bg0 {
+    background-color: #f9f9f9;
+    padding: 30px;
+  }
+
+  /* Style the table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  th,
+  td {
+    padding: 12px 15px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f1f1f1;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  /* Style the buttons */
+  
+
+  
+  
+
+  /* Center align the content in the cart */
+  .m-lr-auto {
+    margin: 0 auto;
+  }
+
+  /* Add border and shadow to the summary card */
+  .card {
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+  }
+  .card {
+    background-color: #f8f9fa;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .input-group input {
+    border-radius: 10px;
+  }
+
+  /* Update your coupon code form CSS */
+.input-group {
+  position: relative; /* Add this */
+  z-index: 0; /* Set a lower z-index than the modal */
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  border-radius: 10px;
+  position: relative; /* Add this */
+  z-index: 0; /* Set a lower z-index than the modal */
+}
+
+  .quantity-input {
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    width: 50px;
+    padding-left:10px; /* Adjust width as needed */
+  }
+  
+</style>
+<style>
+  @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+body {
+  
+  font-family: 'Calibri', sans-serif !important;
+}
+
+.mt-100{
+ margin-top:100px;
+
+}
+
+
+.card {
+ 
+  border: 0;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  letter-spacing: .5px;
+  border-radius: 8px;
+  -webkit-box-shadow: 1px 5px 24px 0 rgba(68,102,242,.05);
+  box-shadow: 1px 5px 24px 0 rgba(68,102,242,.05);
+}
+
+.card .card-header {
+  background-color: #fff;
+  border-bottom: none;
+  
+  border-bottom: 1px solid #f6f7fb;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.card-header:first-child {
+  border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+
+
+
+.card .card-body {
+
+  background-color: transparent;
+}
+
+.btn-primary, .btn-primary.disabled, .btn-primary:disabled {
+  background-color: #4466f2!important;
+  border-color: #4466f2!important;
+}
+</style>
+<style>
+  body {font-family: Arial, Helvetica, sans-serif;}
+  
+  
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 300px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+  }
+  
+  /* The Close Button */
+  .close {
+    position: absolute;
+    
+    right: 10px;
+    color: #aaaaaa;
+    
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  /* Custom coupon dropdown styles */
+.coupon-input-group {
+    position: relative;
+}
+
+.coupon-dropdown {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+}
+
+.coupon-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.coupon-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.coupon-option {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+    padding: 10px;
+}
+
+.coupon-option:hover {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.coupon-code {
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.coupon-discount {
+    color: #888;
+}
+/* ... Other styles ... */
+
+.close-button {
+    position: absolute;
+    top: 0px;
+    right: 0;
+    background-color: #fff;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close-button:focus {
+    outline: none;
+}
+
+  </style>
+
+<!-- Shopping Cart -->
+{% if cart.cartitem_set.count > 0 %}
+
+
+ 
+
+
+
+<div class="bg0 p-t-75 p-b-85">
+  <div class="   " style=" background-color: #f9f9f9;">
+    <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+      Home
+      <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+    </a>
+
+    <span class="stext-109 cl4">
+      Shoping Cart
+    </span>
+  </div>  
+  <div class="container">
+    <div class="row my-5">
+      <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+        <div class="m-l-25 m-r--38 m-lr-0-xl">
+          <div class="wrap-table-shopping-cart">
+            <table class="table-shopping-cart  ">
+              <thead>
+                <tr class="table_head">
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  
+                  <th>Quantity</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="price-head" >
+                {% for cartitem in cart.cartitem_set.all %}
+
+                <tr>
+                  <td>
+                    <div class="how-itemcart1">
+                      <img src="{{ cartitem.productvariant.product.image.url }}" alt="Product Image" style="height: 60px; width: 60px;">
+                    </div>
+                  </td>
+                  <td>{{ cartitem.productvariant.product.name }}</td>
+                  <td>$ {{ cartitem.productvariant.get_discount_price }}</td>
+                  
+
+                  {% comment %} ===============================AJAX====================================== {% endcomment %}
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <button class="btn btn-sm btn-light" onclick="decreaseQuantity('{{ cartitem.id }}');" >
+                        <i class="fa fa-minus"></i>
+                      </button>
+                      <input type="number" class="form-control quantity-input" id="qty{{ cartitem.id }}" step="1" min="1" max="{{ cartitem.productvariant.stock }}" name="quantity" value="{{ cartitem.quantity }}" onchange="updateQuantity('{{ cartitem.id }}', this.value);" disabled>
+                      <button class="btn btn-sm btn-light" onclick="increaseQuantity('{{ cartitem.id }}','{{ cartitem.productvariant.stock }}');">
+                        <i class="fa fa-plus"></i>
+                      </button>
+                    </div>
+                  </td>
+                  
+                  {% comment %} 333333333333333333333333333333333333333333333333333333333333333333333 {% endcomment %}
+                  <td>
+                    <form method="POST" action="{% url 'remove_from_cart' cartitem.id %}">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                    </form>
+                  </td>
+
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          {% comment %} <form method="POST" class="form-inline d-flex align-items-center" action="#">
+            {% csrf_token %}
+            <div class="form-group mr-5 text-white">
+              <label for="coupon">Available Coupons:</label>
+              <div class="d-flex align-items-center">
+                <select class="form-control form-control-sm mr-5" id="coupon" name="coupon">
+                  <option value="">Select a coupon</option>
+                  {% for coupon in coupons %}
+                  <option value="{{ coupon.code }}">{{ coupon.code }} - FLAT ({{ coupon.discount }} off)</option>
+                  {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-success" style="height: 35px; width: 75px;">Apply</button>
+              </div>
+            </div>
+          </form> {% endcomment %}
+        </div>
+      </div>
+
+      <div class="col-md-6 col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50" id="price-body">
+        <div class="card bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm " style="border-radius: 16px;">
+          <h4 class="mtext-109 cl2 p-b-30">
+            Cart Totals
+          </h4>  
+          <div class="card-body p-4 " >
+                <form method="POST">
+                  {% csrf_token %}
+                  <div class="input-group mb-3">
+                    <input type="text" name="coupon" class="form-control" placeholder="Coupon code" aria-label="Coupon code" aria-describedby="apply-coupon" id="coupon-input">
+                    <button class="btn btn-primary" type="Submit" id="apply-coupon">Apply</button>
+                    <div id="coupon-dropdown" class="dropdown-menu" style="display: none; position: absolute; z-index: 1000; width: 100%;">
+                      
+                      <ul class="list-group">
+                        
+                          {% for coupon in coupons %}
+                          <button class="close-button" id="close-coupon-dropdown">&times;</button>
+                          <li class="list-group-item p-2">
+                              <a href="#" class="coupon-option">
+                                  <span class="badge bg-primary me-2">{{ coupon.code }}</span>
+                                  Flat {{ coupon.discount }}% off
+                              </a>
+                          </li>
+                          {% endfor %}
+                      </ul>
+                  </div>
+                </div>
+                
+
+
+              </div>
+                <h5 class="mb-4 my-2 d-flex justify-content-center">Order Summary</h5>
+                <div class="row my-2 d-flex justify-content-center">
+                  <div class="col-6 ">
+                      <p>Total Item Cost</p>
+                  </div>
+                  <div class="col-6 text-end">
+                      <p>₹ {{ total_item_cost }}/-</p>
+                  </div>
+              </div>
+              <div class="row my-2 d-flex justify-content-center">
+                  <div class="col-6">
+                      <p>Discount</p>
+                  </div>
+                  <div class="col-6 text-end">
+                      <p>₹ {{ total_discount }}/-</p>
+                  </div>
+              </div>
+              <div class="row my-2 d-flex justify-content-center">
+                <div class="col-6">
+                    <p>Coupon Applied</p>
+                </div>
+                <div class="col-6 text-end">
+                    <p>₹ {{ coupon_discount }}/-</p>
+                </div>
+            </div>
+            
+            
+              <div class="row my-2 d-flex align-item-center mt-4">
+                  <div class="col-6  ">
+                      <span class="stext-110 mr-2">
+                          <p>Total Cost ({{ cart.cartitem_set.count }})</p>
+                      </span>  
+                  </div>
+                  <div class="col-6 text-end">
+                      <p>₹ {{ total_price }}/-</p>
+                  </div>
+              </div>
+              
+              
+                <hr class="my-4">
+                <button type="button" class="btn btn-primary btn-block btn-lg" style="background-color: red; width: 16rem;margin-right:50px;">
+                  <div class="d-flex justify-content-center " >
+                    {% if user.is_authenticated %}
+                    <a href ="{% url 'checkout'%}"><span class="text-white ">Checkout</span></a>
+                    {% else %}
+                    <a href ="{% url 'custom_signin'%}"><span class="text-white ">checkout</span></a>
+                    {% endif %}
+                      {% comment %} <span>{{ total_price }}</span> <!-- Update to display the total price from the cart --> {% endcomment %}
+                  </div>
+              </button>
+              
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+  </div>
+</div>
+{% else %}
+
+<div class="container-fluid  w-100">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card ">
+        
+        <div class="card-body cart mt-100 " style="margin-bottom:100px;">
+          <div class="col-sm-12 empty-cart-cls text-center">
+            <img src="https://i.imgur.com/dCdflKN.png" width="200" height="200" class="img-fluid mb-4 mr-3">
+            <h2 class="mb-4"><strong>Your Cart is Empty</strong></h2>
+            <p class="mb-4">Start adding products to your cart and explore our amazing collection!</p>
+            <a href="/product-display" class="btn btn-primary btn-lg cart-btn-transform" data-abc="true">Explore Products</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+{% endif %}
+
+{% comment %} left box starting {% endcomment %}
+<!-- Include Bootstrap and jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha256-cS+4p/bsw9VC1P/MhGqWF3MOM6kh3DBvgZIGRaO/lzA=" crossorigin="anonymous" />
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const couponInput = document.getElementById("coupon-input");
+      const couponDropdown = document.getElementById("coupon-dropdown");
+      const couponOptions = document.querySelectorAll(".coupon-option");
+  
+      couponInput.addEventListener("click", function () {
+          couponDropdown.style.display = "block";
+      });
+  
+      couponOptions.forEach(function (option) {
+          option.addEventListener("click", function (event) {
+              event.preventDefault();
+              couponInput.value = this.textContent.trim().split(" ")[0];
+              couponDropdown.style.display = "none";
+          });
+      });
+  });
+  </script>
+  
+
+<script>
+  function updateQuantity(productId, quantity) {
+    $.ajax({
+      type: "POST",
+      url: "/update_quantity/",
+      headers: { "X-CSRFToken": "{{ csrf_token }}" },
+      data: {
+        product_id: productId,
+        quantity: quantity
+      },
+      dataType: 'json',
+      success: function(response) {
+        console.log(response.price);
+        console.log(response.quantity);
+        if (response.success) {
+          // Update the displayed quantity and price
+          $("#price-" + productId).text(response.price);
+          $("#quantity-" + productId).text(response.quantity);
+          console.log("Quantity updated successfully!");
+         
+          $.get(window.location.href, function(data){
+            $("#price-head").html($(data).find("#price-head").html())
+            $("#price-body").html($(data).find("#price-body").html())
+          })
+        } else {
+          console.log("Quantity update failed:", response.message);
+        }       
+      },
+      error: function(xhr, errmsg, err) {
+        console.log("Error updating quantity:", errmsg);
+      }
+    });
+}
+
+function decreaseQuantity(productId) {
+  var inputField = $("#qty" + productId);
+  var currentValue = parseInt(inputField.val());
+  if (currentValue > 1) {
+    var newValue = currentValue - 1;
+    inputField.val(newValue);
+    console.log(newValue);
+    updateQuantity(productId, newValue);
+  }
+}
+
+function increaseQuantity(productId, stock) {
+  var effect = document.getElementById('qty' + productId);
+  var qty = parseInt(effect.value);
+
+  if (!isNaN(qty) && qty < stock && qty < 10) {
+    qty++;
+    effect.value = qty;
+    console.log(qty);
+    updateQuantity(productId, qty);
+  } else {
+    alert("Maximum stock limit reached.");
+  }
+}
+
+</script>
+<script>
+  var modal = document.getElementById("myModal");
+  var btn = document.getElementById("myBtn");
+  var span = document.getElementsByClassName('close')[0];
+
+  btn.onclick = function(){
+    modal.style.display = "block";
+
+  }
+
+  span.onclick = function(){
+    modal.style.display = "none";
+
+  }
+
+  window.onclick == function(event){
+    if (event.target == modal){
+      modal.style.display = "none";
+    }
+  }
+</script>
+
+{% comment %} end {% endcomment %}
+
+{% endblock %}

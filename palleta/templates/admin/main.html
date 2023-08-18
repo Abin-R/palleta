@@ -1,0 +1,334 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="https://www.pexels.com/search/gadget/" />
+
+	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+
+	<title>palleta</title>
+
+	<link href="{% static 'dashboard/css/app.css' %}" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-rEhpI4A9qR+tYZQy3+if9T3orDF8B5MTthB/qeYbh3lu7xInagHTGMZxix9tpDQ8" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-rEhpI4A9qR+tYZQy3+if9T3orDF8B5MTthB/qeYbh3lu7xInagHTGMZxix9tpDQ8" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-rEhpI4A9qR+tYZQy3+if9T3orDF8B5MTthB/qeYbh3lu7xInagHTGMZxix9tpDQ8" crossorigin="anonymous">
+
+
+    {% block link%}
+	{% endblock%}
+        
+
+</head>
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar js-sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="index.html">
+          <span class="align-middle">Palleta.Pvt ltd</span>
+        </a>
+
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">
+						Main
+					</li>
+
+					<li class="sidebar-item ">
+						<a class="sidebar-link" href="/dashboard">
+						<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+						</a>
+					</li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="/userlist">
+                          <i class="align-middle" data-feather="users"></i> <span class="align-middle">Customer List</span>
+                        </a>
+                      </li>
+
+                      <li class="sidebar-item">
+						<a class="sidebar-link" href="/categories">
+						<i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Categories</span>
+						</a>
+					</li>
+
+
+					<li class="sidebar-item">
+                        <a class="sidebar-link" href="{% url 'order_list' %}">
+                            <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Orders</span>
+                        </a>
+                    </li>
+                    
+                    
+                      
+
+                      
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/product">
+						<i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Products</span>
+						</a>
+					</li>
+                      
+
+					
+                      
+                                
+                      
+
+					 <li class="sidebar-header">
+						 Components
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/coupon">
+                        <i class="align-middle" data-feather="book"></i> <span class="align-middle">Coupons</span>
+                        </a>
+                      </li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/banner">
+                        <i class="align-middle" data-feather="square"></i> <span class="align-middle">Banner</span>
+                        </a>
+					</li>
+
+					{% comment %} <li class="sidebar-item">
+						<a class="sidebar-link" href="ui-forms.html">
+              <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="ui-cards.html">
+              <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="ui-typography.html">
+              <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="icons-feather.html">
+              <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
+            </a>
+					</li> 
+
+					<li class="sidebar-header">
+						Plugins & Addons
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="charts-chartjs.html">
+              <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="maps-google.html">
+              <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
+            </a>
+					</li>
+				</ul> {% endcomment %}
+
+				<div class="sidebar-cta">
+					<div class="sidebar-cta-content">
+						<strong class="d-inline-block mb-2">Palleta.Pvt</strong>
+						<div class="mb-3 text-sm">
+							palleta where provide you quality paintings
+						</div>
+						<div class="d-grid">
+							<a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle js-sidebar-toggle">
+          <i class="hamburger align-self-center"></i>
+        </a>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">
+						<li class="nav-item dropdown">
+							{% comment %} <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
+								<div class="position-relative">
+									<i class="align-middle" data-feather="bell"></i>
+									<span class="indicator">4</span>
+								</div>
+							</a>
+							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
+								<div class="dropdown-menu-header">
+									4 New Notifications
+								</div>
+								<div class="list-group">
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<i class="text-danger" data-feather="alert-circle"></i>
+											</div>
+											<div class="col-10">
+												<div class="text-dark">Update completed</div>
+												<div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
+												<div class="text-muted small mt-1">30m ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<i class="text-warning" data-feather="bell"></i>
+											</div>
+											<div class="col-10">
+												<div class="text-dark">Lorem ipsum</div>
+												<div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
+												<div class="text-muted small mt-1">2h ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<i class="text-primary" data-feather="home"></i>
+											</div>
+											<div class="col-10">
+												<div class="text-dark">Login from 192.186.1.8</div>
+												<div class="text-muted small mt-1">5h ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<i class="text-success" data-feather="user-plus"></i>
+											</div>
+											<div class="col-10">
+												<div class="text-dark">New connection</div>
+												<div class="text-muted small mt-1">Christina accepted your request.</div>
+												<div class="text-muted small mt-1">14h ago</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="dropdown-menu-footer">
+									<a href="#" class="text-muted">Show all notifications</a>
+								</div>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
+								<div class="position-relative">
+									<i class="align-middle" data-feather="message-square"></i>
+								</div>
+							</a>
+							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
+								<div class="dropdown-menu-header">
+									<div class="position-relative">
+										4 New Messages
+									</div>
+								</div>
+								<div class="list-group">
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
+											</div>
+											<div class="col-10 ps-2">
+												<div class="text-dark">Vanessa Tucker</div>
+												<div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu tortor.</div>
+												<div class="text-muted small mt-1">15m ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">
+											</div>
+											<div class="col-10 ps-2">
+												<div class="text-dark">William Harris</div>
+												<div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.</div>
+												<div class="text-muted small mt-1">2h ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="Christina Mason">
+											</div>
+											<div class="col-10 ps-2">
+												<div class="text-dark">Christina Mason</div>
+												<div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>
+												<div class="text-muted small mt-1">4h ago</div>
+											</div>
+										</div>
+									</a>
+									<a href="#" class="list-group-item">
+										<div class="row g-0 align-items-center">
+											<div class="col-2">
+												<img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
+											</div>
+											<div class="col-10 ps-2">
+												<div class="text-dark">Sharon Lessman</div>
+												<div class="text-muted small mt-1">Aenean tellus metus, bibendum sed, posuere ac, mattis non.</div>
+												<div class="text-muted small mt-1">5h ago</div>
+											</div>
+										</div>
+									</a>
+								</div>
+								<div class="dropdown-menu-footer">
+									<a href="#" class="text-muted">Show all messages</a>
+								</div>
+							</div>
+						</li> {% endcomment %}
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                <i class="align-middle" data-feather="settings"></i>
+              </a>
+
+							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                <img src="data:image/png;base64,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" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Abin R</span>
+              </a>
+							<div class="dropdown-menu dropdown-menu-end">
+								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
+								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="/signout">Log out</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+            <div class="container">
+                
+                
+                {% block content %}
+                {% endblock %}
+            </div>
+
+            <script src="{% static 'dashboard/js/app.js'%}"></script>
+
+
+            
+           
+        
+        </body>
+        
+        </html>

@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palleta</title>
+    <script src="https://kit.fontawesome.com/5caf998115.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="icon" href="https://www.pexels.com/search/gadget/">
+
+    <!-- Favicon -->
+    <link href="https://cdn-icons-png.flaticon.com/128/11258/11258416.png" rel="icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <style>
+        .vh-100 {
+          height: 100vh;
+        }     
+    
+        /* Add your custom CSS styles here */
+    
+        .footer {
+          position:fixed;
+          bottom: 0;
+          width: 100%;
+          background-color: #f8f9fa;
+          padding: 20px;
+        }
+        .labels {
+          position: relative;
+          display: inline-block;
+          background-color: #fff;
+          padding: 5px 12px;
+          -webkit-transition: all 1s ease;
+          transition: all 1s ease;
+          border-radius: 0;
+          box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .labels::after {
+          content: '';
+          display: block;
+          height: 2px;
+          width: 80%;
+          background-color: #black;
+          -webkit-transition: all 1s ease 0.5s;
+          transition: all 1s ease 0.5s;
+        }
+        
+        .labels input {
+          -webkit-transition: width 1s ease, opacity 0.5s ease 0.5s;
+          transition: width 1s ease, opacity 0.5s ease 0.5s;
+          opacity: 1;
+          width: 180px;
+          height: 25px;
+          border: 0;
+          outline: none;
+          color: #b06d0f;
+        }
+        
+        .labels i {
+          position: absolute;
+          top: 11px;
+          right: 11px;
+          color: #333;
+          cursor: pointer;
+        }
+        
+        .labels[data-state="close"] {
+          border-radius: 30px;
+          padding: 5px 5px;
+          -webkit-transition: all 1s ease;
+          transition: all 1s ease;
+        }
+        
+        .labels[data-state="close"]::after {
+          width: 0%;
+          -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+        }
+        
+        .labels[data-state="close"] i {
+          pointer-events: none;
+        }
+        
+        .labels[data-state="close"] input {
+          width: 28px;
+          height: 25px;
+          opacity: 0;
+          cursor: pointer;
+          -webkit-transition: opacity 0.5s ease, width 1s ease;
+          transition: opacity 0.5s ease, width 1s ease;
+          -webkit-appearance: none;
+        }
+        .texts{
+          font-family: "Lucida Console", "Courier New", monospace;
+        }
+        
+      </style>
+    
+    
+    
+</head>
+
+<body>
+    <!-- navbar -->
+
+    <nav class="bg-body-secondary" >
+        <p> .</p>
+    </nav>
+    
+    <div class="container-fluid bg-white sticky-top my-2">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0 justify-content-between">
+                <a href="/" class="navbar-brand">
+                    <img class="img-fluid" src="https://cdn-icons-png.flaticon.com/128/11258/11258416.png
+                    " alt="Logo" style="width: 3rem;height: 3rem;">
+                </a>
+                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto ">
+                        <a href="/" class="nav-item nav-link mx-4">Home</a>
+                        <a href="about.html" class="nav-item nav-link mx-4">About</a>
+                        <a href="product.html" class="nav-item nav-link mx-4">Products</a>
+                        <a href="store.html" class="nav-item nav-link mx-4">Store</a>
+                        <a href="contact.html" class="nav-item nav-link mx-4">Contact</a>
+                        <a href="store.html" class="nav-item nav-link mx-4">Store</a>
+                        <a href="contact.html" class="nav-item nav-link mx-4">Contact</a>
+                    </div>
+                    <form id="app" action="#">
+                      <label :data-state="state" for="search" class="labels">
+                        <input type="text" placeholder="Search" @click="toggleSearch" @blur="closeSearch" />
+                        <i class="fa fa-search" @click="toggleSearch" aria-hidden="true"></i>
+                      </label>
+                    </form>
+                    
+                    
+                    
+                    
+                    
+                    <div class="navbar-nav ms-auto">
+                        <a href="/signin" class="nav-item nav-link ml-5 mx-2 text-danger ">Login</a>
+                        <a href="/signup" class="nav-item nav-link text-danger ">Signup</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <nav class="bg-body-secondary text-xl-end">
+        <p> .</p>
+    </nav>
+    {% block content %}
+    {% endblock %}
+    <div>
+
+        <p>.</p>
+      </div>
+     
+      <div>
+        <section class="">
+          <!-- Footer -->
+          <footer class="text-white text-center text-md-start" style="background-color:rgb(240, 239, 237); ">
+            <!-- Footer content -->
+            <!-- ...
+                Add your footer content here
+            ... -->
+        
+        
+            <div class="container p-4" style="color: black;">
+              <!--Grid row-->
+              <div class="row">
+                <!--Grid column-->
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                  <h5 class="text-uppercase">Footer Content</h5>
+        
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+                    molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae
+                    aliquam voluptatem veniam, est atque cumque eum delectus sint!
+                  </p>
+                </div>
+                <!--Grid column-->
+        
+                <!--Grid column-->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                  <h5 class="text-uppercase">Links</h5>
+        
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="#!" class="text">Link 1</a>
+                    </li>
+                    <li>
+                      <a href="#!" class="text">Link 2</a>
+                    </li>
+                    <li>
+                      <a href="#!" class="text">Link 3</a>
+                    </li>
+                    <li>
+                      <a href="#!" class="text">Link 4</a>
+                    </li>
+                  </ul>
+                </div>
+                <!--Grid column-->
+        
+                <!--Grid column-->
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                  <h5 class="text-uppercase mb-0">Links</h5>
+        
+                  <ul class="list-unstyled">
+                    <li>
+                      <a href="#!" class="text">Link 1</a>
+                    </li>
+                    <li>
+                      <a href="#!" class="text">Link 2</a>
+                    </li>
+                    <li>
+                      <a href="#!" class="text">Link 3</a>
+                    </li>
+                    <li>
+                      <a href="#!" class="text">Link 4</a>
+                    </li>
+                  </ul>
+                </div>
+                <!--Grid column-->
+              </div>
+              <!--Grid row-->
+            </div>
+  
+            <hr style="color:black">
+            <!-- Grid container -->
+        
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color:rgb(240, 238, 237);color: black;">
+              © 2020 Copyright:
+              <a class="text" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+            </div>
+            <!-- Copyright -->
+          </footer>
+          <!-- Footer -->
+        </section>
+      </div>
+  
+  
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data: {
+        state: "close"
+      },
+      methods: {
+        toggleSearch: function() {
+          this.state = (this.state === "close") ? "opan" : "close";
+        },
+        closeSearch: function() {
+          if (this.state === "opan") {
+            this.state = "close";
+          }
+        }
+      }
+    });
+    
+    
+    
+  </script>
+  
+  
+  </body>
+  
+  </html>
+

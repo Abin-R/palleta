@@ -1,0 +1,79 @@
+{% extends 'admin/main.html' %}
+
+{% block content %}
+<div class="container my-4">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Order Number</th>
+                <th>Order Date</th>
+                <th>Total Price</th>
+                <th>Change Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.created_at }}</td>
+                <td>${{ order.total_price }}</td>
+                <td>
+                    {% if order.order_status != 'Returned' and order.order_status != 'Delivered' %}
+                    <div class="dropdown">
+                        <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Change Status
+                        </button>
+                        <ul class="dropdown-menu">
+                            {% if order.order_status == 'Ordered' %}
+                            <li><a class="dropdown-item" href="{% url 'order_shipped' order.id %}">Shipped</a></li>
+                            {% elif order.order_status == 'Shipped' %}
+                            <li><a class="dropdown-item" href="{% url 'order_delivered' order.id %}">Delivered</a></li>
+                            {% elif order.order_status == 'Requested for return' %}
+                            <li><a class="dropdown-item" href="{% url 'return_orders' order.id %}">Proceed Refund</a></li>
+                            {% endif %}
+                            {% if order.order_status != 'Requested for return' and order.order_status != 'Delivered' and order.order_status != 'Cancelled' %}
+                            <li><a class="dropdown-item" href="{% url 'admin_order_cancel' order.id %}">Cancel</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h2 class="my-4">Ordered Products</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Status</th> <!-- New column for status -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in ordered_items %}
+                <tr>
+                    <td>{{ item.product_variant.product.name }}</td>
+                    <td>
+                        {% if item.product_variant.product.image %}
+                        <img src="{{ item.product_variant.product.image.url }}" alt="{{ item.product_variant.product.name }}" style="max-width: 100px; max-height: 100px;">
+                        {% else %}
+                        No image available
+                        {% endif %}
+                    </td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.price }}</td>
+                    <td>
+                        {{item.order.order_status}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+{% endblock %}
