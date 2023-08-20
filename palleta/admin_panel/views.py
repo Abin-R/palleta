@@ -14,8 +14,39 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 from xhtml2pdf import pisa
 from io import BytesIO
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import user_passes_test, login_required
 
 
+def is_superuser(user):
+    return user.is_superuser
+
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+def admin_signin(request):
+   
+   if request.user.is_authenticated and request.user.is_superuser:
+       
+       return redirect('dashboard')
+   if request.method == 'POST':
+    
+      username = request.POST["username"]
+     
+      pass1 = request.POST['pass1']
+    
+      user = authenticate(username = username, password = pass1)
+
+      if user is not None and user.is_superuser :
+        
+          login(request,user)
+          return redirect('dashboard')
+      else:
+          return redirect('admin_signin')
+      
+   return render(request,'admin/admin_signin.html')
+
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def dashboard(request):
     if request.method == 'GET':
      
@@ -123,6 +154,10 @@ def dashboard(request):
 
     return HttpResponseBadRequest("Invalid request method.")
 
+
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def download_order_pdf_sales(request):
     today = timezone.now().date()
     week_ago = today - timedelta(days=7)
@@ -178,6 +213,9 @@ def download_order_pdf_sales(request):
 
     return response
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 # user list:
 def user_list(request):
         if request.GET.get('search') is not None:
@@ -190,6 +228,10 @@ def user_list(request):
         }
         return render(request, 'admin/user_list.html', context)
 
+
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 #Block User:
 def block_user(request,user_id):
 
@@ -203,6 +245,9 @@ def block_user(request,user_id):
     else:
         return redirect('user_list')
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 #Unblock User:
 def unblock_user(request,user_id):
     if request.user.is_superuser:
@@ -216,12 +261,17 @@ def unblock_user(request,user_id):
 from store.models import *
 
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 #categories
 def categories(request):
     categories = Category.objects.all().order_by('id')
     return render(request, 'admin/categories.html', {'categories': categories})
 
-
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 #add categories
 def add_category(request):
     if request.method == 'POST':
@@ -234,6 +284,10 @@ def add_category(request):
 
     return render(request, 'admin/add_category.html', {'form': form})
 
+
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 #delete category
 def disable_category(request, category_id):
     category = Category.objects.get(id=category_id)
@@ -247,6 +301,9 @@ def enable_category(request, category_id):
     category.save()
     return redirect('categories')
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 # edit category
 def edit_category(request, category_id):
     category = Category.objects.get(id=category_id)
@@ -259,11 +316,17 @@ def edit_category(request, category_id):
         form = CategoryForm(instance=category)
     return render(request, 'admin/edit_category.html', {'form': form})
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 #products
 def product(request):
     product = Product.objects.all().order_by('id')
     return render(request, 'admin/products.html', {'product': product})
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def product_variant(request,product_id):
     product = get_object_or_404(Product,id = product_id)
     variant = ProductVariant.objects.filter(product=product)
@@ -274,6 +337,9 @@ def product_variant(request,product_id):
     }
     return render(request, 'admin/product_detail.html',context)
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 #add products
 def add_product(request):
     if request.method == 'POST':
@@ -304,7 +370,9 @@ def add_product(request):
     return render(request, 'admin/add_product.html', {'product_form': product_form, 'variant_form': variant_form})
 
 
-
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 #delete product
 def disable_product(request, product_id):
     product = Product.objects.get(id=product_id)
@@ -312,12 +380,18 @@ def disable_product(request, product_id):
     product.save()
     return redirect('product')
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def enable_product(request, product_id):
     product = Product.objects.get(id=product_id)
     product.enabled = True
     product.save()
     return redirect('product')
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 #edit product
 def edit_product(request, product_id):
     product = Product.objects.get(id=product_id)
@@ -330,6 +404,9 @@ def edit_product(request, product_id):
         form = ProductForm(instance=product)
     return render(request, 'admin/edit_product.html', {'form': form})
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 #order list
 def order_list(request):
     orders = Order.objects.all().order_by('-id')
@@ -340,6 +417,9 @@ def order_list(request):
     }
     return render(request, 'admin/order_details.html', context)
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 #order view
 def order_view(request, order_id):
     # Retrieve the order object using the provided order_id
@@ -355,7 +435,9 @@ def order_view(request, order_id):
 
     return render(request, 'order_view.html', context)
 
-
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def order_shipped(request, order_id):
     if request.user.is_superuser:
         order = get_object_or_404(Order, id=order_id)
@@ -366,6 +448,9 @@ def order_shipped(request, order_id):
     else:
         return render(request, 'home.html')
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def order_delivered(request, order_id):
     if request.user.is_superuser:
         order = get_object_or_404(Order, id=order_id)
@@ -418,6 +503,9 @@ def order_delivered(request, order_id):
 #     else:
 #         return render(request, 'home.html')
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def return_orders(request, order_id):
     if request.user.is_superuser:
         order = get_object_or_404(Order, id=order_id)
@@ -441,6 +529,9 @@ def return_orders(request, order_id):
 
         return redirect(request.META.get('HTTP_REFERER'))
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def banner_view(request):
     
     active_banners = Banner.objects.filter(
@@ -451,6 +542,9 @@ def banner_view(request):
     
     return render(request, 'admin/banner.html', {'active_banners': active_banners})
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def add_banner(request):
     
     if request.method == 'POST':
@@ -464,6 +558,10 @@ def add_banner(request):
     context = {'form': form}
     return render(request, 'admin/add_banner.html', context)
 
+
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def change_status(request, order_id):
     if request.user.is_superuser:
         order = Order.objects.get(id=order_id)
@@ -485,6 +583,9 @@ from django.shortcuts import get_object_or_404, redirect
 from django.shortcuts import get_object_or_404, redirect
 # from .models import Order, OrderItem, ProductVariant
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def admin_order_cancel(request, order_id):
  
     order = get_object_or_404(Order, id=order_id)
@@ -505,6 +606,10 @@ def admin_order_cancel(request, order_id):
 
     return JsonResponse({'message': 'Invalid request'}) # Updated redirection to the order list view
 
+
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def coupon(request):
     coupons = Coupon.objects.all()
     context ={
@@ -512,6 +617,9 @@ def coupon(request):
     }
     return render(request,'admin/coupon.html' ,context)
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def add_coupon(request):
     if request.method == 'POST':
         form = CouponForm(request.POST)
@@ -523,10 +631,16 @@ def add_coupon(request):
     return render(request, 'admin/add_coupon.html', {'form': form})
 
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def artist_list(request):
     artists = Artist.objects.all()
     return render(request, 'admin/artist_list.html', {'artists': artists})
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def add_artist(request):
     if request.method == 'POST':
         form = ArtistForm(request.POST)
@@ -537,10 +651,16 @@ def add_artist(request):
         form = ArtistForm()
     return render(request, 'admin/add_artist.html', {'form': form})
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def size_list(request):
     sizes = Size.objects.all()
     return render(request, 'admin/size_list.html', {'sizes': sizes})
 
+@cache_control(no_cache=True,must_revalidate=True,no_store=True)
+@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
+@user_passes_test(is_superuser, login_url='admin_signin') 
 def size_create(request):
     if request.method == 'POST':
         form = SizeForm(request.POST)
@@ -559,8 +679,7 @@ def signout(request):
     return redirect('signin')
 
 
-def admin_signin(request):
-    return render(request,'admin/admin_signin.html')
+
 
 def main(request):
      return render(request,'admin/main.html')

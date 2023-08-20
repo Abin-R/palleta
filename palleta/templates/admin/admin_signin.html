@@ -12,7 +12,8 @@
 
     <!-- Favicon -->
     <link href="https://cdn-icons-png.flaticon.com/128/11258/11258416.png" rel="icon">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -173,16 +174,16 @@
                         <h3 class="texts font-monospace fw-bolder mx-5  my-5" style="padding-bottom:20px;">  Admin_Panel signin</h3>
                     </div>
     
-                    <form action="{% url 'signin' %}" method="POST" name = 'signin'>
+                    <form action="{% url 'admin_signin' %}" method="POST" >
 
                       {% csrf_token %}
 
                     
                         <!-- Email input -->
                         <div class="form-outline mb-4" style="width: 92%;">
-                          <input type="email" id="form1Example13" class="form-control form-control-lg" 
-                            placeholder="Enter a valid email address" name="email" required style="font-size: 18px; "/>
-                          <label class="form-label" for="form1Example13">Email address</label>
+                          <input type="username" id="form1Example13" class="form-control form-control-lg" 
+                            placeholder="Enter a valid email address" name="username" required style="font-size: 18px; "/>
+                          <label class="form-label" for="form1Example13">Username </label>
                         </div>
                         
                         
@@ -190,7 +191,7 @@
                         <!-- Password input -->
                         <div class="form-outline mb-4" style="width: 92%;">
                           <input type="password" id="form1Example23" class="form-control form-control-lg"
-                                 placeholder="Enter password" name="password" required
+                                 placeholder="Enter password" name="pass1" required
                                  style="font-size: 18px;" />
                           <label class="form-label" for="form1Example23">Password</label>
                       </div>
