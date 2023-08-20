@@ -57,7 +57,17 @@ MIDDLEWARE = [
     
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://16.171.26.251/",
+
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
+
 ROOT_URLCONF = 'palleta.urls'
+
 
 TEMPLATES = [
     {
