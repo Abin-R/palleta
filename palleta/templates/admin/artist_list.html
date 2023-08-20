@@ -1,0 +1,38 @@
+{% extends 'admin/main.html' %}
+
+{% block content %}
+
+
+<h2>Artist List</h2>
+
+<a href="{% url 'add_artist' %}" class="btn btn-primary">Add Artist</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Artist Name</th>
+            <th>Products</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for artist in artists %}
+        <tr>
+            <td>{{ artist.id }}</td>
+            <td>{{ artist.name }}</td>
+            <td>
+                <ul>
+                    {% if artist.product_set.all %}
+                    {% for product in artist.product_set.all %}
+                    <li>{{ product.name }}</li>
+                    {% endfor %}
+                    {%else%}
+                    <p>None</p>
+                    {% endif %}
+                </ul>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

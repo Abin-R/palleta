@@ -10,6 +10,14 @@ urlpatterns = [
     path('dashboard/',views.dashboard ,name='dashboard' ),
     path('main/',views.main ,name='main' ),
 
+    #artist:
+    path('artist-list/',views.artist_list,name='artist_list'),
+     path('artists/add/', views.add_artist, name='add_artist'),
+
+    #size
+    path('sizes/', views.size_list, name='size-list'),
+    path('sizes/create/', views.size_create, name='size-create'),
+
     #USER 
     path('userlist/',views.user_list ,name='user_list' ),
     path('block_user/<int:user_id>/',views.block_user,name='block_user'),

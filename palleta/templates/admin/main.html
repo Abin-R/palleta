@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-rEhpI4A9qR+tYZQy3+if9T3orDF8B5MTthB/qeYbh3lu7xInagHTGMZxix9tpDQ8" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-rEhpI4A9qR+tYZQy3+if9T3orDF8B5MTthB/qeYbh3lu7xInagHTGMZxix9tpDQ8" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-rEhpI4A9qR+tYZQy3+if9T3orDF8B5MTthB/qeYbh3lu7xInagHTGMZxix9tpDQ8" crossorigin="anonymous">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
     {% block link%}
 	{% endblock%}
@@ -100,19 +101,19 @@
                         </a>
 					</li>
 
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/artist-list">
+							<i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Artist</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/sizes">
+							<i class="align-middle" data-feather="grid"></i> <span class="align-middle">Sizes</span>
+						</a>
+					</li>
+
 					{% comment %} <li class="sidebar-item">
-						<a class="sidebar-link" href="ui-forms.html">
-              <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-cards.html">
-              <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
 						<a class="sidebar-link" href="ui-typography.html">
               <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
             </a>

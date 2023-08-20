@@ -1,0 +1,30 @@
+{% extends 'admin/main.html' %}
+
+{% block content %}
+  <h1>Sizes</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for size in sizes %}
+        <tr>
+          <td>{{ size.id }}</td>
+          <td>{{ size.name }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+  <h2>Add New Size</h2>
+  <form method="post" action="{% url 'size-create' %}">
+    {% csrf_token %}
+    <label for="size-name">Size Name:</label>
+    <input type="text" id="size-name" name="name" required>
+    <button type="submit">Add Size</button>
+  </form>
+{% endblock %}
+

@@ -1,6 +1,9 @@
 {% extends 'admin/main.html' %}
 
 {% block content %}
+
+
+
   <div class="d-flex justify-content-center">
     <h1 class="text-center mb-4">Add Product</h1>
   </div>
@@ -87,7 +90,10 @@
       <input type="file" class="form-control" id="images" name="images" multiple onchange="previewImages(event)">
       <div id="image-preview" style="display: flex; flex-wrap: wrap; gap: 10px; padding-top: 10px;"></div>
   </div>
-    
+  <div id="image-cropper" style="display: none;">
+    <img id="cropper-image" src="" alt="Cropped Image">
+    <button id="crop-button">Crop Image</button>
+</div>
       <!-- ... render other ProductVariant fields ... -->
       
       <div class="text-center">
@@ -95,4 +101,46 @@
       </div>
     </form>
   </div>
+
+  <script>
+    let cropper;
+
+    function previewImages(event) {
+        const previewDiv = document.getElementById('image-preview');
+        previewDiv.innerHTML = '';
+
+        const files = event.target.files;
+
+        for (const file of files) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.maxWidth = '100px';
+                img.style.maxHeight = '100px';
+                previewDiv.appendChild(img);
+
+                img.addEventListener('click', function () {
+                    document.getElementById('cropper-image').src = img.src;
+                    document.getElementById('image-preview').style.display = 'none';
+                    document.getElementById('image-cropper').style.display = 'block';
+
+                    cropper = new Cropper(document.getElementById('cropper-image'), {
+                        aspectRatio: 1,
+                        viewMode: 1,
+                    });
+
+                    document.getElementById('crop-button').addEventListener('click', function () {
+                        const croppedImage = cropper.getCroppedCanvas().toDataURL();
+                        // You can do something with the croppedImage here
+                    });
+                });
+            };
+
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
 {% endblock %}

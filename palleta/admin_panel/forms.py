@@ -10,6 +10,7 @@ class CategoryForm(forms.ModelForm):
 
 class ProductForm(forms.ModelForm):
     category = forms.ModelChoiceField(queryset=Category.objects.all(), label="Category")
+    artist = forms.ModelChoiceField(queryset=Artist.objects.all(), label="Artist")
     image = forms.ImageField(required=False)
     
     class Meta:
@@ -37,4 +38,14 @@ class BannerForm(forms.ModelForm):
 class CouponForm(forms.ModelForm):
     class Meta:
         model = Coupon
-        fields = '__all__' 
+        fields = '__all__'
+
+class ArtistForm(forms.ModelForm):
+    class Meta:
+        model = Artist
+        fields = ['name'] 
+
+class SizeForm(forms.ModelForm):
+    class Meta:
+        model = Size
+        fields = ['name']

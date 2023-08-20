@@ -523,6 +523,34 @@ def add_coupon(request):
     return render(request, 'admin/add_coupon.html', {'form': form})
 
 
+def artist_list(request):
+    artists = Artist.objects.all()
+    return render(request, 'admin/artist_list.html', {'artists': artists})
+
+def add_artist(request):
+    if request.method == 'POST':
+        form = ArtistForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('artist_list')
+    else:
+        form = ArtistForm()
+    return render(request, 'admin/add_artist.html', {'form': form})
+
+def size_list(request):
+    sizes = Size.objects.all()
+    return render(request, 'admin/size_list.html', {'sizes': sizes})
+
+def size_create(request):
+    if request.method == 'POST':
+        form = SizeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('size-list')
+    else:
+        form = SizeForm()
+    
+    return render(request, 'your_app/size_create.html', {'form': form})
 #signout:  
 @cache_control(no_cache=True, must_revalidate=True, no_store=True, max_age=0)
 def signout(request):
@@ -532,7 +560,7 @@ def signout(request):
 
 
 def admin_signin(request):
-    return render(request,'adminadmin_signin.html')
+    return render(request,'admin/admin_signin.html')
 
 def main(request):
      return render(request,'admin/main.html')
