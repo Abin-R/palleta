@@ -29,7 +29,8 @@ def order(request):
 def checkout(request):
     user = request.user
     addresses = Address.objects.filter(user=user).order_by('id')
-    cart_items = CartItem.objects.filter(cart__user=user)  # Filter cart items associated with the current user
+    cart_items = CartItem.objects.filter(cart__user=user)
+    wallet = Wallet.objects.filter(user=request.user)  # Filter cart items associated with the current user
 
     cart = Cart.objects.get(user=user)  # Get the user's cart
     total_price = cart.get_total_price()
@@ -40,6 +41,7 @@ def checkout(request):
 
     context = {
         'addresses': addresses,
+        'wallet':wallet,
         'cart' : cart,
         'cart_items': cart_items,
         'total_price': total_price,  # Pass the overall total_price to the template
@@ -50,6 +52,12 @@ def checkout(request):
 
 def place_order(request, address_id):
     user = request.user
+    try:
+        wallet = Wallet.objects.get(user=user)
+    except Wallet.DoesNotExist:
+        # Handle the case where the user's wallet doesn't exist
+        wallet = None
+    
     address = Address.objects.get(id=address_id)
     try:
         cart = Cart.objects.get(user=user)
@@ -61,9 +69,12 @@ def place_order(request, address_id):
     
     if 'total_price' in request.session:
         total_price = request.session['total_price']
-
+    
+    total_price = float(total_price) 
+    
     context = {
         'cart': cart,
+        'wallet':wallet,
         'cart_items': cart_items,  # Add the cart items to the context
         'total_price': total_price,
         'address': address,

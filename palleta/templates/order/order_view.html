@@ -286,16 +286,16 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-4 text-center d-flex justify-content-center align-items-center">
-                      <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                      {% comment %} <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                         <a href="" style="text-decoration: none;color: inherit;">Invoice PDF</a>
-                      </button>
+                      </button> {% endcomment %}
                     </div>
                     <div class="col-md-4 text-center d-flex justify-content-center align-items-center">
                       <!-- Add any additional content here -->
                     </div>
                     {% if orders.order_status == 'DELIVERED' %}
                     <div class="col-md-4 text-center d-flex justify-content-center align-items-center">
-                      <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                      <button class="flex-c-m bg-primary stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                         <a href="" style="text-decoration: none;color: inherit;">Return Order</a>
                       </button>
                     </div>
@@ -322,7 +322,7 @@
             </div>
             <p>Welcome to the Ordered Products Page! Here, you can conveniently view and manage your recently ordered products. Stay organized and track your purchases effortlessly!</p>
             <p class="font-weight-bold mb-0">Thanks for shopping with us!</p>
-            <span>TrekNesus Team</span>
+            <span>palleta ltd</span>
             <div class="d-flex justify-content-between footer p-3">
               <span>Continue Shopping <a href=""> Shop More</a></span>
               <span>{{orders.order_date.date}}</span>
