@@ -9,17 +9,18 @@ from django.shortcuts import render
 from store.models import *
 from django.shortcuts import render, redirect
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 
 
 
-
+@login_required
 def order(request):
     user = request.user
     order = Order.objects.filter(user=user)
     order_items = OrderItem.objects.filter(order__user=user)
     context = {
-        'order':order,
+        'order': order,
         'order_items': order_items,
     }
     return render(request, 'order.html', context)

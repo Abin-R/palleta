@@ -31,9 +31,9 @@ def profile(request):
         return redirect('profile')
 
     return render(request, 'profile/profile.html')
+from django.contrib.auth.decorators import login_required
 
-
-
+@login_required
 def address(request):
     user = request.user
     addresses = Address.objects.filter(user=user).order_by('id')
@@ -42,7 +42,8 @@ def address(request):
         'addresses': addresses,
     }
 
-    return render(request, 'profile/address.html',context )
+    return render(request, 'profile/address.html', context)
+
 
 
 def add_address(request):
@@ -173,7 +174,8 @@ def delete_address(request, address_id):
     
     return render(request, 'profile/delete_address.html', {'address': address})
 
+@login_required
 def wallet_view(request):
-    user_wallet = Wallet.objects.get(user=request.user)  # Assuming you have a User object
+    user_wallet = Wallet.objects.get(user=request.user)
     context = {'wallet': user_wallet}
     return render(request, 'profile/wallet.html', context)

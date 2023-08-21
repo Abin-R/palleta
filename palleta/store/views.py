@@ -208,27 +208,29 @@ def add_to_wishlistt(request,variant_id):
     # Redirect back to the referring page
         return redirect(referring_page)
 
-
 def wishlist(request):
-    # Get or create the user's wishlist
-    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+    # Check if the user is authenticated
+    if request.user.is_authenticated:
+        # Get or create the user's wishlist
+        wishlist, created = Wishlist.objects.get_or_create(user=request.user)
 
-    # Get all WishlistItem objects associated with the user's wishlist
-    items = Wishlistitem.objects.filter(wishlist=wishlist)
-    cart_items = CartItem.objects.filter(cart__user=request.user)
-    
-    # Create a set of product variant IDs that are in the cart
-    cart_item_ids = set(cart_item.productvariant.id for cart_item in cart_items)
+        # Get all WishlistItem objects associated with the user's wishlist
+        items = Wishlistitem.objects.filter(wishlist=wishlist)
+        cart_items = CartItem.objects.filter(cart__user=request.user)
+        
+        # Create a set of product variant IDs that are in the cart
+        cart_item_ids = set(cart_item.productvariant.id for cart_item in cart_items)
 
-
-    # Pass the 'items' variable to the template context
-    context = {
-        'items': items,
-        'cart_item_ids': cart_item_ids,
-    }
-    
+        # Pass the 'items' variable to the template context
+        context = {
+            'items': items,
+            'cart_item_ids': cart_item_ids,
+        }
+    else:
+        context = {}
 
     return render(request, 'wishlist/wishlist.html', context)
+
 
 def remove_from_wishlist(request, item_id):
    
