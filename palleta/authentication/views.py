@@ -68,7 +68,7 @@ def signup(request):
         current_site = get_current_site(request)
         uidb64 = urlsafe_base64_encode(force_bytes(myuser.pk))
         verification_url = reverse('verify_email', kwargs={'uidb64': uidb64, 'token': token})
-        verification_url = f"{request.scheme}://{current_site}{verification_url}"
+        verification_url = f"{request.scheme}://51.20.1.7{verification_url}"
 
         # Send verification email
         mail_subject = 'Activate your account'
@@ -170,7 +170,7 @@ def password_reset(request):
             current_site = get_current_site(request)
             uidb64 = urlsafe_base64_encode(force_bytes(myuser.pk))
             reset_url = reverse('password_reset_confirm', kwargs={'uidb64': uidb64, 'token': token})
-            reset_url = f"{request.scheme}://{current_site}{reset_url}"
+            reset_url = f"{request.scheme}://51.20.1.7{reset_url}"
             # uidb64 = urlsafe_base64_encode(force_bytes(myuser.pk))
             
             # password_reset_confirm_url = reverse('password_reset_confirm', kwargs={'uidb64': uidb64, 'token': token})
