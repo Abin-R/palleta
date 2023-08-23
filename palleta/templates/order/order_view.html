@@ -139,45 +139,37 @@
               </div>
             {% endif %}
             <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
-              <table class="table table-borderless">
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="py-2">
-                                <span class="d-block text-muted">Order Status</span>
-                                <span>{{orders.order_status}}</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="py-2">
-                                <span class="d-block text-muted">Order No</span>
-                                <span>TKN002023{{orders.id}}</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="py-2">
-                                <span class="d-block text-muted">Payment Method</span>
-                                <span>{{orders.payment_method}}</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="py-2">
-                                <span class="d-block text-muted">Shipping Address</span>
-                                <span>{{ orders.address.house_name }} </span>
-                                <span>{{ orders.address.branch }} ,</span>
-                                <span>{{ orders.address.city }} ,</span>
-                                <br>
-                                <span>{{ orders.address.district }} ,</span>
-                                
-                                <span>{{ orders.address.state }}, </span>
-                                <span>{{ orders.address.zip_code }},</span>
-                                <span>{{ orders.address.country }}</span>
-                            </div>
-                            
-                        </td>
-                    </tr>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td class="py-3">
+                                <strong>Order Status:</strong>
+                                {{ orders.order_status }}
+                            </td>
+                            <td class="py-3">
+                                <strong>Order No:</strong>
+                                TKN002023{{ orders.id }}
+                            </td>
+                            <td class="py-3">
+                                <strong>Payment Method:</strong>
+                                {{ orders.payment_method }}
+                            </td>
+                            <td class="py-3">
+                                <strong>Shipping Address:</strong>
+                                {{ orders.address.house_name }}<br>
+                                {{ orders.address.branch }},<br>
+                                {{ orders.address.city }},<br>
+                                {{ orders.address.district }},<br>
+                                {{ orders.address.state }},<br>
+                                {{ orders.address.zip_code }},<br>
+                                {{ orders.address.country }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
             </div>
             <div class="product border-bottom table-responsive">
               <table class="table table-borderless">
@@ -293,13 +285,16 @@
                     <div class="col-md-4 text-center d-flex justify-content-center align-items-center">
                       <!-- Add any additional content here -->
                     </div>
-                    {% if orders.order_status == 'DELIVERED' %}
+                   
+                
+                {% if order.order_status == 'DELIVERED' %}
                     <div class="col-md-4 text-center d-flex justify-content-center align-items-center">
                       <button class="flex-c-m bg-primary stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                        <a href="" style="text-decoration: none;color: inherit;">Return Order</a>
+                        <a href="{% url 'return_orders' orders.id %}" style="text-decoration: none;color: inherit;">Return Order</a>
                       </button>
                     </div>
-                  {% elif orders.order_status == 'RETURNED' or orders.order_status == "PENDING" or  orders.order_status == 'CANCELLED'  %}
+                  
+                  {% elif orders.order_status == 'Returned' or orders.payment_status == "PENDING" or  orders.order_status == 'CANCELLED'  %}
                     <div class="col-md-4 text-center d-flex justify-content-center align-items-center">
                       <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                         <a href="#" style="text-decoration: none;color: inherit;">Shop More</a>
@@ -309,7 +304,7 @@
                   {% else %}
                     <div class="col-md-4 text-center d-flex stifyju-content-center align-items-center">
                       <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                        <a href="" style="text-decoration: none;color: inherit;">Cancel The Order</a>
+                        <a href="{% url 'admin_order_cancel' orders.id %}" style="text-decoration: none;color: inherit;">Cancel The Order</a>
                       </button>
                     </div>
                   {% endif %}

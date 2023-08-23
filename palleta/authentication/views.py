@@ -145,7 +145,7 @@ def otp(request):
 def signout(request):
     logout(request)
     messages.success(request, 'Logged out successfully!')
-    return redirect('signin')
+    return redirect('/')
 
 
 

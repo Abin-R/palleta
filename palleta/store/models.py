@@ -179,12 +179,13 @@ class Order(models.Model):
     PAYMENT_METHOD_CHOICES = [
         ('RAZORPAY', 'razorpay'),
         ('CASH_ON_DELIVERY', 'Cash on Delivery'),
+        ('Wallet pay','Wallet pay')
     ]
 
 
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     address = models.ForeignKey(Address, on_delete=models.CASCADE,null=True, blank=True)
-    payment_status = models.CharField(max_length=25, choices=PAYMENT_STATUS_CHOICES, default='ordered')
+    payment_status = models.CharField(max_length=25, choices=PAYMENT_STATUS_CHOICES, default='pending')
     payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES,default='Cash on Delivery')
     order_status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='Ordered')
     message = models.TextField(null=True, blank=True)

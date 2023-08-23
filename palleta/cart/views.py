@@ -147,7 +147,7 @@ def cart_view(request):
         }
 
         return render(request, 'cart/cart.html', context)
-
+    
     
 
 

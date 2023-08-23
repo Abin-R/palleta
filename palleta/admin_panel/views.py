@@ -467,41 +467,45 @@ def order_delivered(request, order_id):
 
     return redirect(request.META.get('HTTP_REFERER'))
 
-# def admin_order_cancel(request, order_id):
-#     if request.user.is_superuser:
-#         order = get_object_or_404(Order, id=order_id)
-#         user = order.user
-#         if order.order_status != 'Delivered' and order.order_status != 'Returned'and order.order_status !='Cancelled' and order.order_status != 'Requested for return ':
-#             order_items = OrderItem.objects.filter(order=order)
-#             for item in order_items:
-#                 variant = item.product
-#                 variant.stock += item.quantity
-#                 variant.save()
-#             if order.payment_method in ['Net banking', 'Wallet pay']:
-#                 user_wallet = Wallet.objects.get(user=user)
-#                 # Refund the amount to the user's wallet
-#                 refund_amount = order.total_price  # Assuming you want to refund the full amount
-#                 user_wallet.balance += Decimal(refund_amount)
-#                 user_wallet.save()
-#                 transaction_type = 'Cancelled'
-#                 WalletTransaction.objects.create(
-#                     wallet=user_wallet,
-#                     amount=refund_amount,
-#                     order_id=order,
-#                     transaction_type=transaction_type,
-#                 )
-#             if order.payment_status=='Pending':
-#                 order.payment_status='No payment'
-#             else:
-#                 order.payment_status='Refunded'
-#             order.order_status='Cancelled'
-#             Order.cancelled_date=timezone.now()
-#             order.save()
+def admin_order_cancel(request, order_id):
+    print("------")
+    if request.user.is_superuser:
+        order = get_object_or_404(Order, id=order_id)
+        user = order.user
+        if order.order_status != 'Delivered' and order.order_status != 'Returned'and order.order_status !='Cancelled' and order.order_status != 'Requested for return ':
+            # ...
+            order_items = OrderItem.objects.filter(order=order)
+            for item in order_items:
+                variant = item.product_variant  # Use 'product_variant' instead of 'productvariant'
+                variant.stock += item.quantity
+                variant.save()
+# ...
 
-#         return redirect(request.META.get('HTTP_REFERER'))
+            if order.payment_method in ['RAZORPAY', 'Wallet pay']:
+                user_wallet = Wallet.objects.get(user=user)
+                # Refund the amount to the user's wallet
+                refund_amount = order.total_price  # Assuming you want to refund the full amount
+                user_wallet.balance += Decimal(refund_amount)
+                user_wallet.save()
+                transaction_type = 'Cancelled'
+                WalletTransaction.objects.create(
+                    wallet=user_wallet,
+                    amount=refund_amount,
+                    order_id=order,
+                    transaction_type=transaction_type,
+                )
+            if order.payment_status=='Pending':
+                order.payment_status='No payment'
+            else:
+                order.payment_status='Refunded'
+            order.order_status='Cancelled'
+            Order.cancelled_date=timezone.now()
+            order.save()
 
-#     else:
-#         return render(request, 'home.html')
+        return redirect(request.META.get('HTTP_REFERER'))
+
+    else:
+        return render(request, 'home.html')
 
 @cache_control(no_cache=True,must_revalidate=True,no_store=True)
 @login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
@@ -582,29 +586,7 @@ from django.shortcuts import get_object_or_404, redirect
 
 from django.shortcuts import get_object_or_404, redirect
 # from .models import Order, OrderItem, ProductVariant
-
-@cache_control(no_cache=True,must_revalidate=True,no_store=True)
-@login_required(login_url='admin_signin')  # This ensures that the user is logged in before accessing the view.
-@user_passes_test(is_superuser, login_url='admin_signin') 
-def admin_order_cancel(request, order_id):
- 
-    order = get_object_or_404(Order, id=order_id)
-    
-    if request.method == 'POST':
-        if order.order_status != 'CANCELLED':
-            order.order_status = 'CANCELLED'
-            order.save()
-
-            for item in order.orderitem_set.all():
-                product_variant = item.product_variant
-                product_variant.stock += item.quantity
-                product_variant.save()
-
-            return JsonResponse({'message': 'Order cancelled successfully'})
-        else:
-            return JsonResponse({'message': 'Order is already cancelled'})
-
-    return JsonResponse({'message': 'Invalid request'}) # Updated redirection to the order list view
+# Updated redirection to the order list view
 
 
 @cache_control(no_cache=True,must_revalidate=True,no_store=True)

@@ -245,7 +245,7 @@ body {
   </style>
 
 <!-- Shopping Cart -->
-{% if cart.cartitem_set.count > 0 %}
+
 
 
  
@@ -426,31 +426,7 @@ body {
     </div>
   </div>
 </div>
-{% else %}
 
-<div class="container-fluid  w-100">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card ">
-        
-        <div class="card-body cart mt-100 " style="margin-bottom:100px;">
-          <div class="col-sm-12 empty-cart-cls text-center">
-            <img src="https://i.imgur.com/dCdflKN.png" width="200" height="200" class="img-fluid mb-4 mr-3">
-            <h2 class="mb-4"><strong>Your Cart is Empty</strong></h2>
-            <p class="mb-4">Start adding products to your cart and explore our amazing collection!</p>
-            <a href="/product-display" class="btn btn-primary btn-lg cart-btn-transform" data-abc="true">Explore Products</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-{% endif %}
 
 {% comment %} left box starting {% endcomment %}
 <!-- Include Bootstrap and jQuery -->

@@ -134,6 +134,18 @@
                 </div>
                
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-lg-1"style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; border-right: 1px solid #ccc; height: 38rem; border-radius: 0 5px 5px 0;" >
+                  {% if messages %}
+                  <div class="alert alert-warning alert-dismissible fade show message-box" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                      <ul class="messages">
+                          {% for message in messages %}
+                              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                          {% endfor %}
+                      </ul>
+                  </div>
+              {% endif %}
                   <div class="d-flex justify-content-center" >
                     <h4 class="texts font-monospace fw-bolder  my-3" style="padding-top:50px;">SIGN UP WITH PALLETA</h4>
                 </div>

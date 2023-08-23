@@ -258,7 +258,8 @@ def pay_wallet(request, address_id):
                     address=address,
                     total_price=total_price,
                     payment_status='PAID',  # Adjust payment status based on your logic
-                    payment_method='WALLET',  # Adjust payment method based on your logic
+                    payment_method='Wallet pay',
+                    order_status = 'ORDERED' # Adjust payment method based on your logic
                     # Add other relevant fields
                 )
 
