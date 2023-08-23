@@ -428,7 +428,7 @@
 							{% endif %}
 							<div class="variant-images">
 								{% if product.productvariant_set.first.images.all %}
-									<img class="product-image" src="{{ product.productvariant_set.first.images.first.image.url }}" alt="Product Variant Image" style="height: 25rem">
+									<img class="product-image" src="{{ product.productvariant_set.first.images.first.image.url }}" alt="Product Variant Image">
 								{% else %}
 									<p>No image available</p>
 								{% endif %}
