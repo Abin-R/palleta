@@ -59,7 +59,7 @@ MIDDLEWARE = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://51.20.1.7/",
+    "http://51.20.1.7",
 
 ]
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
