@@ -5,6 +5,7 @@
 
 		
 {% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
 <style>
@@ -448,22 +449,39 @@
 									{{ product.name }}
 								</a>
 					
+								{% if product.productvariant_set.first.discount_percentage is not None %}
+								<div class="d-flex">
+									<span class="stext-105 cl2" style="text-decoration-line: line-through">
+										₹ {{ product.productvariant_set.first.price }} 
+									</span>
+									<span class="stext-105 cl2 mx-3">
+										₹ {{ product.discounted_price }} 
+									</span>
+								</div>
+							{% else %}
 								<span class="stext-105 cl3">
-									{{ product.productvariant.price }}
+									₹ {{ product.productvariant_set.first.price }}	
 								</span>
+							{% endif %}
 							</div>
+							{% if product in product_in_wishlist %}
+								<!-- Remove from Wishlist -->
+								<a href="{% url 'remove_from_wishlist' product.id %}" class="wishlist-link">
+									<button class="wishlist-button red">
+										<i class="fas fa-heart"></i> <!-- Heart icon for Remove from Wishlist -->
+									</button>
+								</a>
+							{% else %}
+								<!-- Add to Wishlist -->
+								<a href="{% url 'add_to_wishlistt' variant_id=product.id %}" class="wishlist-link">
+									<button class="wishlist-button white">
+										<i class="far fa-heart"></i> <!-- Empty heart icon for Add to Wishlist -->
+									</button>
+								</a>
+							{% endif %}
+	
 					
-							<div class="block2-txt-child2 flex-r p-t-3">
-								{% if product in product_in_wishlist %}
-									<button class="btn-remove-wishlist dis-block pos-relative js-remove-wishlist" data-product-id="{{ product.id }}" href="{% url 'add_to_wishlistt' product.id %}">
-										<img class="icon-heart2 dis-block trans-04 " src="{% static 'images/icons/icon-heart-02.png' %}" alt="ICON">
-									</button>
-								{% else %}
-									<button class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" data-product-id="{{ product.id }}" href="{% url 'remove_from_wishlist' product.id %}">
-										<img class="icon-heart1 dis-block trans-04 " src="{% static 'images/icons/icon-heart-01.png' %}" alt="ICON">
-									</button>
-								{% endif %}
-							</div>
+							
 						</div>
 					</div>
 					

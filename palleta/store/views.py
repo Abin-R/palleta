@@ -22,26 +22,57 @@ def home(request):
     banner = Banner.objects.all()
 
     if request.user.is_authenticated:
-        wishlist_items = Wishlistitem.objects.filter(wishlist__user = request.user)
+        wishlist_items = Wishlistitem.objects.filter(wishlist__user=request.user)
         product_in_wishlist = [item.product.product for item in wishlist_items]
     else:
-        product_in_wishlist =[]
-    
-    
+        product_in_wishlist = []
+
     top_selling_products = Product.objects.annotate(sales_count=Count('productvariant__orderitem')).order_by('-sales_count')[:4]
-    
+
+    for product in top_selling_products:
+        selected_variant = product.productvariant_set.first()
+
+        # Calculate the discounted price logic similar to the product view
+        variant_discount_percentage = selected_variant.discount_percentage if selected_variant else None
+
+        category_discount_percentage = 0
+        try:
+            category_discount = Offer.objects.get(category=product.category)
+            category_discount_percentage = category_discount.discount_percentage
+        except Offer.DoesNotExist:
+            pass
+
+        # Calculate the discounted price based on the higher discount percentage (variant or category)
+        original_price = selected_variant.price if selected_variant else product.price
+        if variant_discount_percentage is not None and category_discount_percentage is not None:
+            max_discount_percentage = max(variant_discount_percentage, category_discount_percentage)
+        elif variant_discount_percentage is not None:
+            max_discount_percentage = variant_discount_percentage
+        elif category_discount_percentage is not None:
+            max_discount_percentage = category_discount_percentage
+        else:
+            max_discount_percentage = 0
+
+        discounted_price = original_price - (original_price * Decimal(max_discount_percentage / 100))
+        
+        # Add the discounted price to the product object
+        rounded_discounted_price = round(discounted_price)
+
+# Add the rounded discounted price to the product object
+        product.discounted_price = rounded_discounted_price
+
     context = {
         'categories': categories,
         'products': products,
-        'productvariant':productvariant,
-        'banner':banner,
-        'product_in_wishlist':product_in_wishlist,
-        'top_selling_products':top_selling_products,
+        'productvariant': productvariant,
+        'banner': banner,
+        'product_in_wishlist': product_in_wishlist,
+        'top_selling_products': top_selling_products,
     }
-    
+
     if request.user.is_authenticated:
-        return render(request, 'store/index.html',context )
-    
+        return render(request, 'store/index.html', context)
+
     return render(request, 'store/index.html', context)
 
 
@@ -101,7 +132,6 @@ def product_filters(request):
     return render(request, 'store/product_page.html', context)
 
 
-#category view
 def product_page(request):
     categories = Category.objects.all()
     sort_option = request.GET.get('sort')
@@ -117,13 +147,38 @@ def product_page(request):
     else:
         products = Product.objects.all()
 
-    
+    # Calculate the discounted price for each product
+    for product in products:
+        selected_variant = product.productvariant_set.first()
+        
+        original_price = selected_variant.price if selected_variant else product.price
+        variant_discount_percentage = selected_variant.discount_percentage if selected_variant else None
+
+        if variant_discount_percentage is not None:
+            max_discount_percentage = variant_discount_percentage
+        else:
+            max_discount_percentage = 0
+
+        discounted_price = original_price - (original_price * Decimal(max_discount_percentage / 100))
+        
+        # Round the discounted price to the nearest whole number
+        rounded_discounted_price = round(discounted_price)
+
+        # Add the rounded discounted price to the product object
+        product.discounted_price = rounded_discounted_price
+
+    if request.user.is_authenticated:
+        wishlist_items = Wishlistitem.objects.filter(wishlist__user=request.user)
+        product_in_wishlist = [item.product.product for item in wishlist_items]
+    else:
+        product_in_wishlist = []
 
     context = {
         'categories': categories,
         'products': products,
+        'product_in_wishlist': product_in_wishlist,
     }
-    return render(request,'store/product_page.html',context)
+    return render(request, 'store/product_page.html', context)
 
 from decimal import Decimal
 from django.shortcuts import render, get_object_or_404
@@ -160,12 +215,19 @@ def product(request, id):
         max_discount_percentage = 0
 
     discounted_price = original_price - (original_price * Decimal(max_discount_percentage / 100))
-
+    related_products = Product.objects.filter(category=product.category).exclude(pk=product.pk)[:4]
+    if request.user.is_authenticated:
+        wishlist_items = Wishlistitem.objects.filter(wishlist__user = request.user)
+        product_in_wishlist = [item.product.product for item in wishlist_items]
+    else:
+        product_in_wishlist =[]
     context = {
         'product': product,
         'selected_variant': selected_variant,
         'variants': variants,
         'discounted_price': discounted_price,
+        'related_products': related_products,
+        'product_in_wishlist':product_in_wishlist,
     }
 
     return render(request, 'product/product_view.html', context)

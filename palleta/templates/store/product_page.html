@@ -6,6 +6,7 @@
 		
 {% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	
 <style>
 	/* Add custom styles here */
@@ -254,29 +255,39 @@
 								</a>
 								
 
-								{% if product.productvariant_set.discount_percentage != None %}
-									<span class="mtext-106 cl2" style="text-decoration-line: line-through">
-										₹ {{product.productvariant_set.first.price }} 
+								{% if product.productvariant_set.first.discount_percentage is not None %}
+								<div class="d-flex">
+									<span class="stext-105 cl2" style="text-decoration-line: line-through">
+										₹ {{ product.productvariant_set.first.price }} 
 									</span>
-									<span class="mtext-106 cl2 mx-3" >
-										₹ {{product.productvariant_set.get_discount_price}} 
+									<span class="stext-105 cl2 mx-3">
+										₹ {{ product.discounted_price }} 
 									</span>
-								{% else %}
-									
-									<span class="stext-105 cl3">
-											{{ product.productvariant_set.first.price }}	
-									</span>
-								{% endif %}
+								</div>
+							{% else %}
+								<span class="stext-105 cl3">
+									₹ {{ product.productvariant_set.first.price }}	
+								</span>
+							{% endif %}
 								
 								
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="{% static 'images/icons/icon-heart-01.png' %}" alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{% static 'images/icons/icon-heart-02.png'%}" alt="ICON">
+							{% if product in product_in_wishlist %}
+								<!-- Remove from Wishlist -->
+								<a href="{% url 'remove_from_wishlist' product.id %}" class="wishlist-link">
+									<button class="wishlist-button red">
+										<i class="fas fa-heart"></i> <!-- Heart icon for Remove from Wishlist -->
+									</button>
 								</a>
-							</div>
+							{% else %}
+								<!-- Add to Wishlist -->
+								<a href="{% url 'add_to_wishlistt' variant_id=product.id %}" class="wishlist-link">
+									<button class="wishlist-button white">
+										<i class="far fa-heart"></i> <!-- Empty heart icon for Add to Wishlist -->
+									</button>
+								</a>
+							{% endif %}
 						</div>
 					</div>
 				</div>
