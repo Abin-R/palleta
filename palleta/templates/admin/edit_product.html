@@ -2,7 +2,7 @@
 
 {% block content %}
   <div class="d-flex justify-content-center">
-    <h1 class="text-center mb-4">Edit Product</h1>
+    <h1 class="text-center mb-4 my-2" style="font-weight :bold;">Edit Product</h1>
   </div>
 
   <div class="d-flex justify-content-center">
@@ -29,10 +29,6 @@
         <label for="id_artist" class="form-label">Artist</label>
         {{ form.artist }}
       </div>
-      {% comment %} <div class="mb-3">
-        <label for="id_size" class="form-label">Size</label>
-        {{ form.size }}
-      </div> {% endcomment %}
       <div class="mb-3">
         <label for="id_medium" class="form-label">Medium</label>
         {{ form.medium }}
@@ -49,17 +45,34 @@
         <label for="id_seller" class="form-label">Seller</label>
         {{ form.seller }}
       </div>
-      {% comment %} <div class="mb-3">
-        <label for="id_price" class="form-label">Price</label>
-        {{ form.price }}
-      </div> {% endcomment %}
       <div class="mb-3">
         <label for="id_description" class="form-label">Description</label>
         {{ form.description }}
       </div>
+      <div class="mb-3">
+        <label for="id_size" class="form-label">Size</label>
+        {{ form.size }}
+      </div>
+      <div class="mb-3">
+        <label for="id_discount_percentage" class="form-label">Discount Percentage</label>
+        {{ form.discount_percentage }}
+      </div>
+      <div class="mb-3">
+        <label for="id_price" class="form-label">Price</label>
+        {{ form.price }}
+      </div>
+      <div class="mb-3">
+        <label for="id_is_active" class="form-label">Is Active</label>
+        {{ form.is_active }}
+      </div>
+      <div class="mb-3">
+        <label for="id_stock" class="form-label">Stock</label>
+        {{ form.stock }}
+      </div>
       <div class="text-center">
         <button type="submit" class="btn btn-primary">Save Changes</button>
       </div>
-    </form>
+</form>
+
   </div>
 {% endblock %}

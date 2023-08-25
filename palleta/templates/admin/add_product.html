@@ -1,42 +1,99 @@
 {% extends 'admin/main.html' %}
 
 {% block content %}
+<style>
+    .form-container {
+      background-color: #f7f7f7;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+    }
+  
+    .form-heading {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+  
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+  
+    .form-label {
+      font-weight: bold;
+      min-width: 120px; /* Adjust the width as needed */
+      margin-right: 10px;
+    }
+  
+    .form-control {
+      border-radius: 5px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      width: 100%;
+    }
+  
+    .preview-image {
+      max-width: 100px;
+      max-height: 100px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+  
+    .preview-image:hover {
+      transform: scale(1.1);
+    }
+  
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+  
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  
 
-
-
-  <div class="d-flex justify-content-center">
-    <h1 class="text-center mb-4">Add Product</h1>
-  </div>
-
-  <div class="d-flex justify-content-center">
-    <form method="POST" class="col-md-6 p-4 bg-light rounded" enctype="multipart/form-data">
-      {% csrf_token %}
-      <!-- Render Product fields from ProductForm -->
-      <div class="mb-3">
-        <label for="{{ product_form.name.id_for_label }}" class="form-label">Name</label>
-        {{ product_form.name }}
-    </div>
-    <div class="mb-3">
-        <label for="{{ product_form.image.id_for_label }}" class="form-label">Image</label>
-        {{ product_form.image }}
-        {% if product_form.image.value %}
-            <img src="{{ product_form.image.value.url }}" alt="Product Image" style="max-width: 200px;">
-        {% else %}
-            No image available
-        {% endif %}
-    </div>
-    <div class="mb-3">
-        <label for="{{ product_form.category.id_for_label }}" class="form-label">Category</label>
-        {{ product_form.category }}
-    </div>
-    <div class="mb-3">
-        <label for="{{ product_form.artist.id_for_label }}" class="form-label">Artist</label>
-        {{ product_form.artist }}
-    </div>
-    <div class="mb-3">
-        <label for="{{ product_form.description.id_for_label }}" class="form-label">Description</label>
-        {{ product_form.description }}
-    </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="form-container">
+          <h1 class="form-heading mb-5" style="font-weight :bold;">Add Product</h1>
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+          <!-- Render Product fields from ProductForm -->
+          <div class="mb-3">
+            <label for="{{ product_form.name.id_for_label }}" class="form-label">Name</label>
+            {{ product_form.name }}
+          </div>
+          <div class="mb-3">
+            <label for="{{ product_form.image.id_for_label }}" class="form-label">Image</label>
+            {{ product_form.image }}
+            {% if product_form.image.value %}
+                <img src="{{ product_form.image.value.url }}" alt="Product Image" class="img-fluid">
+            {% else %}
+                No image available
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label for="{{ product_form.category.id_for_label }}" class="form-label">Category</label>
+            {{ product_form.category }}
+          </div>
+          <div class="mb-3">
+            <label for="{{ product_form.artist.id_for_label }}" class="form-label">Artist</label>
+            {{ product_form.artist }}
+          </div>
+          <div class="mb-3">
+            <label for="{{ product_form.description.id_for_label }}" class="form-label">Description</label>
+            {{ product_form.description }}
+          </div>
     <div class="mb-3">
         <label for="{{ product_form.medium.id_for_label }}" class="form-label">Medium</label>
         {{ product_form.medium }}
@@ -53,18 +110,9 @@
         <label for="{{ product_form.seller.id_for_label }}" class="form-label">Seller</label>
         {{ product_form.seller }}
     </div>
-    <div class="mb-3">
-        <label for="{{ product_form.enabled.id_for_label }}" class="form-label">Enabled</label>
-        {{ product_form.enabled }}
-    </div>
     
-      <!-- ... render other Product fields ... -->
+    
       
-      <!-- Render ProductVariant fields from ProductVariantForm -->
-      <div class="mb-3">
-        <label for="{{ variant_form.category.id_for_label }}" class="form-label">Category</label>
-        {{ variant_form.category }}
-    </div>
     <div class="mb-3">
         <label for="{{ variant_form.size.id_for_label }}" class="form-label">Size</label>
         {{ variant_form.size }}
