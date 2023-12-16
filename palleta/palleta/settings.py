@@ -58,7 +58,7 @@ MIDDLEWARE = [
     
 ]
 
-ALLOWED_HOSTS = ['16.171.197.179', 'yourdomain.com']
+ALLOWED_HOSTS = ['16.171.197.179', 'yourdomain.com'.'0.0.0.0']
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
