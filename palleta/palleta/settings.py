@@ -58,10 +58,8 @@ MIDDLEWARE = [
     
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://51.20.1.7",
+ALLOWED_HOSTS = ['16.171.197.179', 'yourdomain.com']
 
-]
 SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 CORS_ORIGIN_ALLOW_ALL = True
