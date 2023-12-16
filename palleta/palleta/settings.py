@@ -58,7 +58,7 @@ MIDDLEWARE = [
     
 ]
 
-ALLOWED_HOSTS = ['http://16.171.197.179/','0.0.0.0']
+ALLOWED_HOSTS = ['*','http://16.171.197.179/','0.0.0.0']
 
 CSRF_TRUSTED_ORIGINS = ['http://16.171.197.179/']
 
